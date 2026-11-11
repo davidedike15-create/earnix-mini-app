@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earnix Dashboard</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#070d19;color:white;font-family:Arial,sans-serif}
+header{padding:22px;background:#101c31;border-bottom:1px solid #173d70}
+header h2{margin:0;color:#38a5ff}
+header p{color:#9eb4d0;font-size:13px}
+main{padding:18px;max-width:600px;margin:auto}
+.card{background:#111f35;border:1px solid #203c60;border-radius:15px;padding:18px;margin:15px 0}
+h3{margin-top:0}
+.balance{font-size:30px;color:#42a5ff;font-weight:bold}
+button{background:#087bea;color:white;border:0;padding:13px 18px;border-radius:9px;font-weight:bold;margin-top:10px}
+nav{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+nav button{margin:0;background:#172d4b}
+.note{color:#9eb4d0;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h2>EARNIX</h2>
+<p>Your rewards dashboard</p>
+</header>
+<main>
+<div class="card">
+<p>WELCOME TO EARNIX</p>
+<h3>Your dashboard</h3>
+<p class="note">Track your activities and eligible rewards.</p>
+</div>
+
+<div class="card">
+<p class="note">DEMO REWARD BALANCE</p>
+<div class="balance">₦0.00</div>
+<p class="note">Demo display only. No real money is held.</p>
+</div>
+
+<div class="card">
+<h3>Reward Session</h3>
+<p id="session">No active session</p>
+<button onclick="startSession()">Start Demo Session</button>
+<p class="note">Demonstration only. No real earnings are generated.</p>
+</div>
+
+<div class="card">
+<h3>Explore Earnix</h3>
+<nav>
+<button onclick="show('Mining')">Mining</button>
+<button onclick="show('Tasks')">Tasks</button>
+<button onclick="show('Refer & Earn')">Refer & Earn</button>
+<button onclick="show('Wallet')">Wallet</button>
+<button onclick="show('Statistics')">Statistics</button>
+<button onclick="show('Support')">Support</button>
+</nav>
+<p id="section" class="note">Choose a section above.</p>
+</div>
+</main>
+<script>
+function show(name){
+document.getElementById('section').textContent =
+name === 'Tasks' ? 'COMING SOON' : name + ' section — coming soon.';
+}
+function startSession(){
+document.getElementById('session').textContent =
+'Demo session started. This is not a real reward session.';
+}
+</script>
+</body>
+</html>

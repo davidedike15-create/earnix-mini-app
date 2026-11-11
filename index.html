@@ -6,701 +6,384 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Earnix Legit Miner Bot</title>
 <style>
-:root {
-  --blue:#008cff;
-  --cyan:#00d9ff;
-  --green:#00e878;
-  --bg:#020711;
-  --panel:#07172b;
-  --line:#087fff;
-}
-* {box-sizing:border-box}
-body {
-  margin:0;
-  background:radial-gradient(ellipse at top,#06234b,#01040a 65%);
-  color:#fff;
-  font-family:Arial,sans-serif;
-  min-height:100vh;
-}
-button,input,select {font:inherit}
-button {
-  cursor:pointer;
-  color:white;
-  border:1px solid #08baff;
-  border-radius:13px;
-  background:linear-gradient(120deg,#007bff,#0739ed);
-  padding:13px;
-  font-weight:bold;
-  box-shadow:0 0 14px #007bff88;
-}
-button:disabled {opacity:.45;cursor:not-allowed}
-input,select {
-  width:100%;
-  padding:13px;
-  margin:8px 0;
-  border-radius:10px;
-  border:1px solid #087fff;
-  color:white;
-  background:#061326;
-  outline:none;
-}
-label {font-size:13px;color:#b9dcff}
-h1,h2,h3,p {margin-top:0}
-small {color:#b8d9f9}
-a {color:#00d9ff}
-.hidden {display:none!important}
-#app {max-width:480px;margin:auto;min-height:100vh;padding:12px 12px 90px}
-.header {
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 5px;
-}
-.brand {display:flex;align-items:center;gap:10px}
-.logo {
-  width:48px;height:48px;border:2px solid var(--cyan);
-  border-radius:12px;display:grid;place-items:center;
-  color:var(--cyan);font-size:29px;font-weight:bold;
-  box-shadow:0 0 15px #008cff;
-}
-.brand strong {font-size:22px;font-style:italic}
-.brand strong span {color:var(--cyan)}
-.brand small {display:block;letter-spacing:2px}
-.bell {
-  width:43px;height:43px;border-radius:50%;
-  font-size:20px;padding:5px;position:relative;
-}
-.badge {
-  position:absolute;right:-4px;top:-6px;
-  background:red;border-radius:50%;font-size:11px;
-  padding:4px 6px;
-}
-.hero {text-align:center;margin:14px 0 18px}
-.hero h1 {font-size:29px;font-style:italic;margin-bottom:7px}
-.hero h1 span {color:var(--cyan)}
-.features {
-  display:grid;grid-template-columns:repeat(3,1fr);
-  text-align:center;gap:5px;font-size:11px;margin-bottom:18px;
-}
-.features div {padding:9px 3px}
-.features b {display:block;color:var(--cyan);font-size:18px}
-.card {
-  background:linear-gradient(140deg,#0b1b31,#020812);
-  border:1px solid #078dff;border-radius:20px;
-  padding:15px;margin-bottom:12px;
-  box-shadow:0 0 12px #007bff45,inset 0 0 12px #006cff20;
-}
-.card h3 {margin-bottom:8px}
-.balance {
-  font-size:29px;font-weight:bold;color:var(--cyan);
-  margin:8px 0;
-}
-.green {color:var(--green)}
-.muted {color:#a9c5e4;font-size:13px}
-.row {display:flex;align-items:center;justify-content:space-between;gap:10px}
-.row > * {min-width:0}
-.half {flex:1}
-.timer {font-size:23px;color:var(--cyan);font-weight:bold}
-.primary {width:100%;margin-top:10px;border-radius:30px;font-size:16px}
-.section-title {display:flex;justify-content:space-between;align-items:center}
-.plan-item,.activity,.notice {
-  padding:13px;margin:8px 0;border-radius:13px;
-  background:#08172a;border:1px solid #075bb2;
-}
-.plan-item button {padding:9px 13px}
-.bottom {
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:min(100%,480px);display:grid;grid-template-columns:repeat(5,1fr);
-  background:#020813;border-top:1px solid #008cff;
-  padding:10px 3px max(10px,env(safe-area-inset-bottom));
-  box-shadow:0 0 20px #007bff66;z-index:10;
-}
-.bottom button {
-  background:transparent;border:0;box-shadow:none;
-  padding:5px 1px;font-size:11px;border-radius:5px;
-}
-.bottom button span {display:block;font-size:20px;margin-bottom:4px}
-.bottom button.active {color:var(--cyan)}
-.page {display:none}
-.page.active {display:block}
-.back {background:transparent;border:0;box-shadow:none;color:var(--cyan);padding:5px}
-.stat {text-align:center;flex:1}
-.stat strong {display:block;font-size:18px;color:var(--cyan)}
-.stat small {font-size:11px}
-.notice {border-left:3px solid var(--cyan)}
-.notice.unread {background:#09254a}
-.form-card {max-width:430px;margin:45px auto}
-.form-card h2 {color:var(--cyan)}
-.error {color:#ff7979;font-size:13px}
-.success {color:var(--green)}
-.tag {font-size:11px;color:var(--cyan)}
-hr {border:0;border-top:1px solid #12416d;margin:14px 0}
-@media(max-width:350px) {
- .hero h1 {font-size:24px}
- .balance {font-size:24px}
- .bottom button {font-size:9px}
-}
+:root{--blue:#008cff;--cyan:#00d9ff;--green:#00e878;--bg:#020711;--panel:#07172b}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#06234b,#01040a 65%);color:#fff;font-family:Arial,sans-serif;min-height:100vh}
+button,input,select{font:inherit}
+button{cursor:pointer;color:white;border:1px solid #08baff;border-radius:13px;background:linear-gradient(120deg,#007bff,#0739ed);padding:13px;font-weight:bold;box-shadow:0 0 14px #007bff66}
+button:disabled{opacity:.45;cursor:not-allowed}
+input,select{width:100%;padding:13px;margin:8px 0;border-radius:10px;border:1px solid #087fff;color:white;background:#061326;outline:none}
+label{font-size:13px;color:#b9dcff}
+h1,h2,h3,p{margin-top:0}
+small{color:#b8d9f9}
+a{color:var(--cyan)}
+.hidden{display:none!important}
+#app{max-width:480px;margin:auto;min-height:100vh;padding:12px 12px 95px}
+.header{display:flex;align-items:center;justify-content:space-between;padding:12px 5px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:48px;height:48px;border:2px solid var(--cyan);border-radius:12px;display:grid;place-items:center;color:var(--cyan);font-size:29px;font-weight:bold;box-shadow:0 0 15px #008cff}
+.brand strong{font-size:22px;font-style:italic}
+.brand strong span{color:var(--cyan)}
+.brand small{display:block;letter-spacing:2px}
+.bell{width:48px;height:48px;border-radius:50%;font-size:22px;padding:5px;position:relative}
+.badge{position:absolute;right:-4px;top:-6px;background:red;border-radius:50%;font-size:11px;padding:4px 6px}
+.hero{text-align:center;margin:35px 0 30px}
+.hero h1{font-size:29px;font-style:italic;margin-bottom:10px}
+.hero h1 span{color:var(--cyan)}
+.hero:after{content:"";display:block;height:3px;width:70%;margin:25px auto;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 12px var(--cyan)}
+.card{background:linear-gradient(140deg,#0b1b31,#020812);border:1px solid #078dff;border-radius:20px;padding:17px;margin-bottom:14px;box-shadow:0 0 12px #007bff45,inset 0 0 12px #006cff20}
+.card h3{margin-bottom:8px}
+.balance{font-size:29px;font-weight:bold;color:var(--cyan);margin:9px 0}
+.green{color:var(--green)}
+.muted{color:#a9c5e4;font-size:13px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.row>*{min-width:0}
+.half{flex:1}
+.timer{font-size:23px;color:var(--cyan);font-weight:bold}
+.primary{width:100%;margin-top:10px;border-radius:30px;font-size:16px}
+.section-title{display:flex;justify-content:space-between;align-items:center}
+.activity,.notice,.plan-item{padding:13px;margin:8px 0;border-radius:13px;background:#08172a;border:1px solid #075bb2}
+.plan-item button{padding:9px 13px}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);display:grid;grid-template-columns:repeat(5,1fr);background:#020813;border-top:1px solid #008cff;padding:9px 3px max(10px,env(safe-area-inset-bottom));box-shadow:0 0 20px #007bff66;z-index:10}
+.bottom button{background:transparent;border:0;box-shadow:none;padding:5px 1px;font-size:11px;border-radius:5px}
+.bottom button span{display:block;font-size:22px;margin-bottom:4px;color:#00bfff}
+.bottom button.active{color:var(--cyan)}
+.page{display:none}
+.page.active{display:block}
+.back{background:transparent;border:0;box-shadow:none;color:var(--cyan);padding:5px}
+.stat{text-align:center;flex:1}
+.stat strong{display:block;font-size:18px;color:var(--cyan)}
+.form-card{max-width:430px;margin:45px auto}
+.form-card h2{color:var(--cyan)}
+.error{color:#ff7979;font-size:13px}
+.success{color:var(--green)}
+hr{border:0;border-top:1px solid #12416d;margin:14px 0}
+.notice.unread{background:#09254a}
+.small-btn{padding:8px 12px;font-size:12px}
+.warning{border:1px solid #a87516;background:#2b210d;padding:12px;border-radius:12px;color:#ffe0a0;font-size:12px;line-height:1.5}
+@media(max-width:350px){.hero h1{font-size:24px}.balance{font-size:24px}.bottom button{font-size:9px}}
 </style>
 </head>
 <body>
 <div id="app">
 
-<!-- AUTHENTICATION -->
 <section id="auth">
-  <div class="form-card card">
-    <div class="brand">
-      <div class="logo">₦</div>
-      <div><strong>EARN<span>IX</span></strong><small>LEGIT MINER BOT</small></div>
-    </div>
-    <h2 id="authTitle">Create Your Earnix Account</h2>
-    <p class="muted">Mine • Earn • Withdraw</p>
-    <form id="authForm">
-      <div id="countryField">
-        <label>Country</label>
-        <select id="country">
-          <option value="Nigeria">Nigeria</option>
-          <option value="Ghana">Ghana</option>
-          <option value="Kenya">Kenya</option>
-          <option value="South Africa">South Africa</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      <label>Email Address</label>
-      <input id="email" type="email" required placeholder="Enter email">
-      <label>Password</label>
-      <input id="password" type="password" required minlength="6" placeholder="Enter password">
-      <button class="primary" id="authSubmit">Create Account</button>
-    </form>
-    <p id="authError" class="error"></p>
-    <p class="muted" id="authSwitch">
-      Already registered? <a href="#" id="switchAuth">Login</a>
-    </p>
-    <p class="muted">Demo prototype. Use test details only.</p>
-  </div>
+ <div class="form-card card">
+  <div class="brand"><div class="logo">₦</div><div><strong>EARN<span>IX</span></strong><small>LEGIT MINER BOT</small></div></div>
+  <h2 id="authTitle">Create Your Earnix Account</h2>
+  <p class="muted">Mine • Earn • Withdraw</p>
+  <form id="authForm">
+   <div id="countryField"><label>Country</label>
+    <select id="country"><option>Nigeria</option><option>Ghana</option><option>Kenya</option><option>South Africa</option><option>Other</option></select>
+   </div>
+   <label>Email Address</label><input id="email" type="email" required placeholder="Enter email">
+   <label>Password</label><input id="password" type="password" required minlength="6" placeholder="At least 6 characters">
+   <button class="primary" id="authSubmit">Create Account</button>
+  </form>
+  <p id="authError" class="error"></p>
+  <p class="muted" id="authSwitch">Already registered? <a href="#" id="switchAuth">Login</a></p>
+  <p class="muted">Secure account authentication by Firebase.</p>
+ </div>
 </section>
 
-<!-- MAIN APP -->
 <section id="main" class="hidden">
-  <header class="header">
-    <div class="brand">
-      <div class="logo">₦</div>
-      <div><strong>EARN<span>IX</span></strong><small>LEGIT MINER BOT</small></div>
-    </div>
-    <button class="bell" onclick="showPage('notifications')">
-      ♧<span class="badge" id="unread">0</span>
-    </button>
-  </header>
+ <header class="header">
+  <div class="brand"><div class="logo">₦</div><div><strong>EARN<span>IX</span></strong><small>LEGIT MINER BOT</small></div></div>
+  <button class="bell" onclick="showPage('notifications')" aria-label="Notifications">♧<span class="badge" id="unread">0</span></button>
+ </header>
 
-  <div id="page-mining" class="page active">
-    <div class="hero">
-      <h1>Earnix Cloud <span>Mining</span></h1>
-      <p>Mine • Earn • Withdraw</p>
-    </div>
-    <div class="features">
-      <div><b>☁</b>Earnix Mining<br>No Equipment Needed</div>
-      <div><b>▥</b>Multiple Plans<br>Flexible Plans</div>
-      <div><b>♢</b>Safe & Reliable<br>Secure Accounts</div>
-    </div>
-
-    <div class="card">
-      <div class="row">
-        <div>
-          <small>Wallet Balance (₦)</small>
-          <div class="balance" id="dashWallet">₦0.00</div>
-          <small class="green">● Available Balance</small>
-        </div>
-        <div style="text-align:right">
-          <small>Naira Price</small>
-          <h2>₦1.00</h2>
-          <small>Demo display</small>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <small>Mining Balance (₦)</small>
-      <div class="balance" id="miningBalance">₦0.00</div>
-      <div class="green" id="miningStatus">● Mining Inactive</div>
-      <hr>
-      <div class="row">
-        <div class="half">
-          <div class="timer" id="timer">24:00:00</div>
-          <small>Time Remaining</small>
-        </div>
-        <div class="half">
-          <div class="timer green" id="estimate">₦0.00</div>
-          <small>Illustrative earnings</small>
-        </div>
-      </div>
-      <button class="primary" id="mineButton" onclick="mineAction()">▶ Start Miner</button>
-      <small class="muted" id="activePlan"></small>
-    </div>
-
-    <div class="section-title">
-      <h3>My Plans</h3>
-      <button class="back" onclick="showPage('plans')">View all ›</button>
-    </div>
-    <div class="card" onclick="showPage('plans')">
-      <div class="row">
-        <div><b>👥 Beginner Mining Level</b><p class="muted">5 Miner Levels Available</p></div>
-        <div style="color:var(--cyan);font-size:25px">▂▅▇</div>
-      </div>
-    </div>
-    <div class="section-title"><h3>Recent Activity</h3></div>
-    <div id="recentActivity" class="card"></div>
+ <div id="page-mining" class="page active">
+  <div class="hero"><h1>Earnix Cloud <span>Mining</span></h1><p>Mine • Earn • Withdraw</p></div>
+  <div class="card">
+   <div class="row">
+    <div><small>Wallet Balance (₦)</small><div class="balance" id="dashWallet">₦0.00</div><small class="green">● Available Balance</small></div>
+    <div style="text-align:right"><small>Naira Price</small><h2>₦1.00</h2></div>
+   </div>
   </div>
-
-  <!-- PLANS -->
-  <div id="page-plans" class="page">
-    <button class="back" onclick="showPage('mining')">‹ Back Home</button>
-    <h2>Buy Miner</h2>
-    <p class="muted">Choose your beginner miner plan.</p>
-    <div class="card">
-      <h3 style="color:var(--cyan)">⚡ Beginner Mining Level</h3>
-      <div id="plansList"></div>
-    </div>
-    <div class="card">
-      <h3>Growth Mining Level</h3>
-      <p class="muted">Unlock advanced mining power for higher rewards.</p>
-      <button disabled class="primary">Coming Soon</button>
-    </div>
+  <div class="card">
+   <small>Mining Balance (₦)</small><div class="balance">₦0.00</div>
+   <div class="green">● Mining Inactive</div><hr>
+   <div class="row">
+    <div class="half"><div class="timer" id="timer">24:00:00</div><small>Time Remaining</small></div>
+    <div class="half"><div class="timer">₦0.00</div><small>Illustrative earnings</small></div>
+   </div>
+   <button class="primary" onclick="showPage('plans')">▶ View Miner Plans</button>
+   <small class="muted">Mining is a demonstration only. No real mining or earnings are generated.</small>
   </div>
+  <div class="section-title"><h3>My Plans</h3><button class="back" onclick="showPage('plans')">View all ›</button></div>
+  <div class="card" onclick="showPage('plans')"><b>⚡ Beginner Mining Level</b><p class="muted">5 Miner Levels Available</p></div>
+  <h3>Recent Activity</h3><div id="recentActivity" class="card"></div>
+ </div>
 
-  <!-- TASK -->
-  <div id="page-task" class="page">
-    <button class="back" onclick="showPage('mining')">‹ Back Home</button>
-    <div class="card" style="text-align:center;padding:35px 15px">
-      <div style="font-size:65px;color:var(--cyan)">☑</div>
-      <h1>Task Bot</h1>
-      <h2>Available at the Moment!</h2>
-      <p class="muted">Task features will be introduced in a future update.</p>
-      <button disabled class="primary">Coming Soon</button>
-    </div>
+ <div id="page-plans" class="page">
+  <button class="back" onclick="showPage('mining')">‹ Back Home</button><h2>My Plans</h2>
+  <div class="card"><h3 style="color:var(--cyan)">Beginner Mining Level</h3><div id="plansList"></div>
+   <div class="warning">Displayed targets are illustrative examples only. They are not guaranteed returns or promises of payment. Plan activation is not enabled until a verified backend is configured.</div>
   </div>
+  <div class="card"><h3>Growth Mining Level</h3><p class="muted">Advanced level</p><button disabled class="primary">Coming Soon</button></div>
+ </div>
 
-  <!-- WALLET -->
-  <div id="page-wallet" class="page">
-    <button class="back" onclick="showPage('mining')">‹ Back Home</button>
-    <h2>My Wallet</h2>
-    <p class="muted">Manage your deposits and withdrawals.</p>
-    <div class="card">
-      <small>Available Balance</small>
-      <div class="balance" id="walletBalance">₦0.00</div>
-      <div class="row">
-        <button class="half" onclick="showPage('deposit')">▣ Deposit</button>
-        <button class="half" onclick="showPage('withdraw')">⇥ Withdraw</button>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Wallet Overview</h3>
-      <div class="row"><small>Total Deposits</small><b id="totalDeposits">₦0.00</b></div>
-      <hr>
-      <div class="row"><small>Total Withdrawals</small><b id="totalWithdrawals">₦0.00</b></div>
-      <hr>
-      <div class="row"><small>Referral Earnings</small><b id="refEarnings">₦0.00</b></div>
-      <hr>
-      <div class="row"><small>Mining Rewards</small><b id="miningRewards">₦0.00</b></div>
-    </div>
-    <div class="card"><h3>Transaction History</h3><div id="transactions"></div></div>
+ <div id="page-task" class="page">
+  <button class="back" onclick="showPage('mining')">‹ Back Home</button>
+  <div class="card" style="text-align:center;padding:35px 15px"><div style="font-size:55px;color:var(--cyan)">☑</div><h1>Task Bot</h1><h2>Available Soon!</h2><p class="muted">Task features will be introduced in a future update.</p><button disabled class="primary">Coming Soon</button></div>
+ </div>
+
+ <div id="page-wallet" class="page">
+  <button class="back" onclick="showPage('mining')">‹ Back Home</button><h2>My Wallet</h2>
+  <div class="card"><small>Available Balance</small><div class="balance" id="walletBalance">₦0.00</div>
+   <div class="row"><button class="half" onclick="showPage('deposit')">▣ Deposit</button><button class="half" onclick="showPage('withdraw')">⇥ Withdraw</button></div>
   </div>
-
-  <!-- DEPOSIT -->
-  <div id="page-deposit" class="page">
-    <button class="back" onclick="showPage('wallet')">‹ Back</button>
-    <h2>Deposit Funds</h2>
-    <p class="muted">Submit a deposit request for administrator verification.</p>
-    <div class="card">
-      <label>Deposit Amount (₦)</label>
-      <input type="number" id="depositAmount" min="100" placeholder="Enter amount">
-      <p class="muted">Payment instructions and verified payment integration must be configured by the administrator.</p>
-      <button class="primary" onclick="requestDeposit()">Submit Deposit Request</button>
-    </div>
+  <div class="card"><h3>Wallet Overview</h3>
+   <div class="row"><small>Total Deposits</small><b id="totalDeposits">₦0.00</b></div><hr>
+   <div class="row"><small>Total Withdrawals</small><b id="totalWithdrawals">₦0.00</b></div><hr>
+   <div class="row"><small>Referral Earnings</small><b id="refEarnings">₦0.00</b></div>
   </div>
+  <div class="card"><h3>Transaction History</h3><div id="transactions"></div></div>
+ </div>
 
-  <!-- WITHDRAW -->
-  <div id="page-withdraw" class="page">
-    <button class="back" onclick="showPage('wallet')">‹ Back</button>
-    <h2>Withdraw Funds</h2>
-    <div class="card">
-      <small>Available Balance</small>
-      <div class="balance" id="withdrawBalance">₦0.00</div>
-      <label>Account Holder Name</label>
-      <input id="accountName" placeholder="Full account name">
-      <label>Bank Name</label>
-      <input id="bankName" placeholder="Bank name">
-      <label>Account Number</label>
-      <input id="accountNumber" maxlength="10" placeholder="10-digit account number">
-      <label>Withdrawal Amount (₦)</label>
-      <input id="withdrawAmount" type="number" min="1" placeholder="Amount">
-      <button class="primary" onclick="requestWithdrawal()">Submit Withdrawal Request</button>
-      <p class="muted">Requests remain pending until verified and processed.</p>
-    </div>
+ <div id="page-deposit" class="page">
+  <button class="back" onclick="showPage('wallet')">‹ Back</button><h2>Deposit Funds</h2>
+  <p class="muted">Make your transfer, then submit your request for manual verification.</p>
+  <div class="card">
+   <h3 style="color:var(--cyan)">Bank Transfer Details</h3>
+   <p>Bank: <b>PalmPay</b></p><p>Account Name: <b>Sandra Ewere Edike</b></p><p>Account Number: <b>8149043393</b></p>
+   <button class="primary" onclick="copyText('8149043393')">Copy Account Number</button>
+   <hr><label>Amount to Deposit (₦)</label><input id="depositAmount" type="number" min="100" placeholder="Enter amount">
+   <p class="muted">After transferring, submit your request and send your payment evidence to the administrator on WhatsApp.</p>
+   <button class="primary" onclick="requestDeposit()">I've Made Payment</button>
+   <p class="muted">A request remains pending until the actual transfer is checked in the receiving PalmPay account. A screenshot alone is not confirmation.</p>
   </div>
+ </div>
 
-  <!-- REFERRAL -->
-  <div id="page-referral" class="page">
-    <button class="back" onclick="showPage('mining')">‹ Back Home</button>
-    <h2>Invite Friends</h2>
-    <h2 style="color:var(--cyan)">Grow Together 🎁</h2>
-    <p class="muted">Invite friends and earn ₦50 for each verified referral.</p>
-    <div class="card">
-      <h3>Your Referral Code</h3>
-      <h2 id="refCode" style="color:var(--cyan)">EARNIX</h2>
-      <button class="primary" onclick="copyText(refCode.textContent)">Copy Referral Code</button>
-    </div>
-    <div class="card">
-      <h3>Your Referral Link</h3>
-      <input id="refLink" readonly>
-      <button class="primary" onclick="copyText(refLink.value)">Copy Referral Link</button>
-      <p class="muted">Share your unique link with friends.</p>
-    </div>
-    <div class="card row">
-      <div class="stat"><strong id="refCount">0</strong><small>Referrals</small></div>
-      <div class="stat"><strong id="refTotal">₦0</strong><small>Total Rewards</small></div>
-      <div class="stat"><strong>₦50</strong><small>Per Verified Referral</small></div>
-    </div>
-    <div class="card">
-      <h3>Referral Earnings Balance</h3>
-      <div class="balance" id="refBalance">₦0.00</div>
-      <small class="muted">Rewards are credited only after referral verification.</small>
-    </div>
-    <div class="card">
-      <h3>How It Works</h3>
-      1. Share your referral link.<br><br>
-      2. Your friend registers.<br><br>
-      3. Their registration is verified.<br><br>
-      4. You receive ₦50.
-    </div>
+ <div id="page-withdraw" class="page">
+  <button class="back" onclick="showPage('wallet')">‹ Back</button><h2>Withdraw Funds</h2>
+  <div class="card"><small>Available Balance</small><div class="balance" id="withdrawBalance">₦0.00</div>
+   <label>Account Holder Name</label><input id="accountName" placeholder="Full account name">
+   <label>Bank Name</label><input id="bankName" placeholder="Bank name">
+   <label>Account Number</label><input id="accountNumber" maxlength="10" inputmode="numeric" placeholder="10-digit account number">
+   <label>Withdrawal Amount (₦)</label><input id="withdrawAmount" type="number" min="1" placeholder="Amount">
+   <button class="primary" onclick="requestWithdrawal()">Submit Withdrawal Request</button>
+   <p class="muted">Requests are reviewed by the administrator. Submitting a request does not mean payment has been made.</p>
   </div>
+ </div>
 
-  <!-- NOTIFICATIONS -->
-  <div id="page-notifications" class="page">
-    <button class="back" onclick="showPage('mining')">‹ Back Home</button>
-    <h2>Notifications 🔔</h2>
-    <div id="notificationList"></div>
-    <div id="adminNotice" class="card hidden">
-      <h3>Admin: Publish Update</h3>
-      <label>Notification Title</label>
-      <input id="noticeTitle" placeholder="Update title">
-      <label>Message</label>
-      <input id="noticeMessage" placeholder="Write your announcement">
-      <button class="primary" onclick="publishNotice()">Publish Notification</button>
-    </div>
+ <div id="page-referral" class="page">
+  <button class="back" onclick="showPage('mining')">‹ Back Home</button><h2>Invite Friends</h2>
+  <h2 style="color:var(--cyan)">Grow Together 🎁</h2><p class="muted">Referral reward: ₦50 after administrator verification.</p>
+  <div class="card"><h3>Your Referral Code</h3><h2 id="refCode" style="color:var(--cyan)">EARNIX</h2><button class="primary" onclick="copyText($('refCode').textContent)">Copy Referral Code</button></div>
+  <div class="card"><h3>Your Referral Link</h3><input id="refLink" readonly><button class="primary" onclick="copyText($('refLink').value)">Copy Referral Link</button></div>
+  <div class="card row"><div class="stat"><strong id="refCount">0</strong><small>Verified Referrals</small></div><div class="stat"><strong id="refBalance">₦0</strong><small>Referral Rewards</small></div></div>
+  <div class="card"><h3>How It Works</h3>1. Share your referral link.<br><br>2. Your friend registers using it.<br><br>3. Admin verifies the referral.<br><br>4. The eligible reward is credited.</div>
+ </div>
+
+ <div id="page-notifications" class="page">
+  <button class="back" onclick="showPage('mining')">‹ Back Home</button><h2>Notifications 🔔</h2><div id="notificationList"></div>
+ </div>
+
+ <div id="page-account" class="page">
+  <button class="back" onclick="showPage('mining')">‹ Back Home</button><h2>My Account</h2>
+  <div class="card"><div class="logo">₦</div><h3 id="accountEmail"></h3><p class="muted" id="accountCountry"></p></div>
+  <div class="card"><p>⚙ Account Settings</p><hr><p>♢ Security</p><hr><p>🔔 Notifications</p><hr><p>ⓘ About Earnix</p><hr><p>Help & Support</p><button class="primary" onclick="logout()">Logout</button></div>
+  <div id="adminPanel" class="card hidden">
+   <h3>Administrator Panel</h3><p class="muted">Signed in with the configured administrator email.</p>
+   <h4>Pending Deposits</h4><div id="pendingDeposits"></div>
+   <h4>Pending Withdrawals</h4><div id="pendingWithdrawals"></div>
+   <h4>Verify Referral</h4><input id="referralEmail" type="email" placeholder="New user's registered email"><button class="primary" onclick="verifyReferral()">Verify Referral & Credit ₦50</button>
+   <hr><h4>Publish Announcement</h4><input id="noticeTitle" placeholder="Announcement title"><input id="noticeMessage" placeholder="Announcement message"><button class="primary" onclick="publishNotice()">Publish Notification</button>
   </div>
+ </div>
 
-  <!-- ACCOUNT -->
-  <div id="page-account" class="page">
-    <button class="back" onclick="showPage('mining')">‹ Back Home</button>
-    <h2>My Account</h2>
-    <div class="card">
-      <div class="logo">₦</div>
-      <h3 id="accountEmail"></h3>
-      <p class="muted" id="accountCountry"></p>
-    </div>
-    <div class="card">
-      <p>⚙ Account Settings</p>
-      <hr><p>♢ Security</p>
-      <hr><p>🔔 Notifications</p>
-      <hr><p>ⓘ About Earnix</p>
-      <hr><p>Help & Support</p>
-      <button class="primary" onclick="logout()">Logout</button>
-    </div>
-    <div id="adminPanel" class="card hidden">
-      <h3>Administrator Panel</h3>
-      <p class="muted">Demo verification controls.</p>
-      <h4>Pending Deposits</h4>
-      <div id="pendingDeposits"></div>
-      <h4>Pending Withdrawals</h4>
-      <div id="pendingWithdrawals"></div>
-      <h4>Referral Verification</h4>
-      <input id="referralEmail" placeholder="New user's email">
-      <button class="primary" onclick="verifyReferral()">Verify Referral & Credit ₦50</button>
-    </div>
-  </div>
-
-  <nav class="bottom">
-    <button class="active" data-page="mining"><span>⌂</span>MINING</button>
-    <button data-page="task"><span>☑</span>TASK</button>
-    <button data-page="wallet"><span>▣</span>WALLET</button>
-    <button data-page="referral"><span>♟</span>REFERRAL</button>
-    <button data-page="account"><span>♙</span>ACCOUNT</button>
-  </nav>
+ <nav class="bottom">
+  <button class="active" data-page="mining"><span>⌂</span>MINING</button>
+  <button data-page="task"><span>▤</span>TASK</button>
+  <button data-page="wallet"><span>▣</span>WALLET</button>
+  <button data-page="referral"><span>♧</span>REFERRAL</button>
+  <button data-page="account"><span>⚙</span>ACCOUNT</button>
+ </nav>
 </section>
 </div>
 
-<script>
-const $ = id => document.getElementById(id);
-const money = n => "₦" + Number(n || 0).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2});
-const PLANS = [
- {level:1,cost:100,target:150},
- {level:2,cost:500,target:750},
- {level:3,cost:1000,target:1500},
- {level:4,cost:5000,target:7500},
- {level:5,cost:10000,target:15000}
-];
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,collection,addDoc,query,where,getDocs,orderBy,limit,runTransaction,serverTimestamp} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
-// DEMO ONLY. Do not use client-side credentials or storage
-// for real payments, passwords, balances or admin security.
-const ADMIN_EMAIL = "admin@earnix.demo";
-const ADMIN_PASSWORD = "ChangeMe123!";
-
-let users = JSON.parse(localStorage.getItem("earnix_users") || "{}");
-let session = localStorage.getItem("earnix_session");
-let current = null;
-let loginMode = false;
-
-function save() {
- localStorage.setItem("earnix_users",JSON.stringify(users));
-}
-function data() {
- return users[current];
-}
-function initUser(email,country) {
- const code = "EARNIX" + Math.random().toString(36).slice(2,7).toUpperCase();
- users[email] = {
-  email,country,code,balance:0,miningBalance:0,
-  deposits:0,withdrawals:0,referralBalance:0,
-  miningRewards:0,transactions:[],depositsPending:[],
-  withdrawalsPending:[],notifications:[
-   {title:"Welcome to Earnix",message:"Welcome! Explore your account and available features.",read:false}
-  ],
-  activePlan:null,miningStart:null,miningClaimAt:null,
-  referred:[],account:{name:"",bank:"",number:""}
- };
- save();
-}
-function showAuth(login=false) {
- loginMode=login;
- $("auth").classList.remove("hidden");
- $("main").classList.add("hidden");
- $("authTitle").textContent=login?"Login to Earnix":"Create Your Earnix Account";
- $("authSubmit").textContent=login?"Login":"Create Account";
- $("countryField").classList.toggle("hidden",login);
- $("authSwitch").innerHTML=login?
- 'New user? <a href="#" id="switchAuth">Create account</a>':
- 'Already registered? <a href="#" id="switchAuth">Login</a>';
- $("switchAuth").onclick=e=>{e.preventDefault();showAuth(!loginMode)};
-}
-$("authForm").onsubmit=e=>{
- e.preventDefault();
- const email=$("email").value.trim().toLowerCase();
- const password=$("password").value;
- $("authError").textContent="";
- if(email===ADMIN_EMAIL && password===ADMIN_PASSWORD){
-  current=email;
-  if(!users[email])initUser(email,"Administrator");
-  session=email;openApp();return;
- }
- if(loginMode){
-  if(!users[email] || users[email].password!==password){
-   $("authError").textContent="Incorrect email or password.";return;
-  }
- }else{
-  if(users[email]){$("authError").textContent="Account already exists. Please login.";return;}
-  initUser(email,$("country").value);
-  users[email].password=password;
-  save();
- }
- current=email;session=email;localStorage.setItem("earnix_session",email);openApp();
+const firebaseConfig={
+ apiKey:"AIzaSyBXy2Im3vYO4AOHPjQVCzpC8aX6-RNp8eo",
+ authDomain:"earnix-f0e75.firebaseapp.com",
+ projectId:"earnix-f0e75",
+ storageBucket:"earnix-f0e75.firebasestorage.app",
+ messagingSenderId:"402785387921",
+ appId:"1:402785387921:web:2b8a5f1ce35c36d7634630",
+ measurementId:"G-X1JYVGBR6T"
 };
-function openApp(){
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const ADMIN_EMAIL="Davidedike15@gmail.com".toLowerCase();
+const $=id=>document.getElementById(id);
+const money=n=>"₦"+Number(n||0).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2});
+const PLANS=[{level:1,cost:100,target:150},{level:2,cost:500,target:750},{level:3,cost:1000,target:1500},{level:4,cost:5000,target:7500},{level:5,cost:10000,target:15000}];
+let user=null,profile=null,loginMode=false;
+const isAdmin=()=>user?.email?.toLowerCase()===ADMIN_EMAIL;
+const uid=()=>user?.uid;
+const userRef=()=>doc(db,"users",uid());
+
+function msg(id,text){$(id).textContent=text}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function showAuth(login=false){loginMode=login;$("auth").classList.remove("hidden");$("main").classList.add("hidden");msg("authTitle",login?"Login to Earnix":"Create Your Earnix Account");msg("authSubmit",login?"Login":"Create Account");$("countryField").classList.toggle("hidden",login);$("authSwitch").innerHTML=login?'New user? <a href="#" id="switchAuth">Create account</a>':'Already registered? <a href="#" id="switchAuth">Login</a>';$("switchAuth").onclick=e=>{e.preventDefault();showAuth(!loginMode)}}
+$("authForm").addEventListener("submit",async e=>{
+ e.preventDefault();msg("authError","");const email=$("email").value.trim().toLowerCase(),password=$("password").value;
+ try{
+  if(loginMode){await signInWithEmailAndPassword(auth,email,password)}
+  else{
+   const cred=await createUserWithEmailAndPassword(auth,email,password);
+   const code="EX"+cred.user.uid.slice(0,8).toUpperCase();
+   const params=new URLSearchParams(location.search),refCode=params.get("ref")||"";
+   await setDoc(doc(db,"users",cred.user.uid),{uid:cred.user.uid,email,country:$("country").value,referralCode:code,referredByCode:refCode,balance:0,totalDeposits:0,totalWithdrawals:0,referralBalance:0,verifiedReferralCount:0,createdAt:serverTimestamp()});
+  }
+ }catch(err){msg("authError",friendlyError(err))}
+});
+function friendlyError(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-credential":"Incorrect email or password.","auth/weak-password":"Use a stronger password with at least 6 characters.","auth/invalid-email":"Enter a valid email address."};return m[e.code]||e.message||"Something went wrong."}
+$("switchAuth").onclick=e=>{e.preventDefault();showAuth(true)};
+async function loadProfile(){
+ const snap=await getDoc(userRef());
+ if(!snap.exists())throw new Error("Your account profile is missing. Contact the administrator.");
+ profile=snap.data();
+}
+async function openApp(){
  $("auth").classList.add("hidden");$("main").classList.remove("hidden");
- renderAll();showPage("mining");
+ await loadProfile();renderProfile();showPage("mining");await refreshAll();
 }
-function logout(){
- current=null;session=null;localStorage.removeItem("earnix_session");
- showAuth(true);
-}
+onAuthStateChanged(auth,async u=>{
+ user=u;
+ if(!u){profile=null;showAuth(false);return}
+ try{await openApp()}catch(e){alert(e.message);await signOut(auth)}
+});
+async function logout(){await signOut(auth)}
+window.logout=logout;
 function showPage(page){
  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
  $("page-"+page).classList.add("active");
  document.querySelectorAll(".bottom button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- if(page==="notifications")renderNotifications();
  if(page==="wallet")renderWallet();
+ if(page==="notifications")renderNotifications();
  if(page==="account")renderAdmin();
  if(page==="plans")renderPlans();
 }
+window.showPage=showPage;
 document.querySelectorAll(".bottom button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
-
-function addTransaction(title,amount,status="Completed"){
- data().transactions.unshift({title,amount,status,date:new Date().toLocaleString()});
- save();
+function renderProfile(){
+ $("dashWallet").textContent=money(profile.balance);$("walletBalance").textContent=money(profile.balance);$("withdrawBalance").textContent=money(profile.balance);
+ $("totalDeposits").textContent=money(profile.totalDeposits);$("totalWithdrawals").textContent=money(profile.totalWithdrawals);$("refEarnings").textContent=money(profile.referralBalance);$("refBalance").textContent=money(profile.referralBalance);
+ msg("accountEmail",profile.email);msg("accountCountry",profile.country||"");msg("refCode",profile.referralCode||"Earnix");
+ $("refLink").value=location.origin+location.pathname+"?ref="+(profile.referralCode||"");
 }
-function renderAll(){
- if(!current || !data())return;
- const u=data();
- $("dashWallet").textContent=money(u.balance);
- $("walletBalance").textContent=money(u.balance);
- $("withdrawBalance").textContent=money(u.balance);
- $("miningBalance").textContent=money(u.miningBalance);
- $("totalDeposits").textContent=money(u.deposits);
- $("totalWithdrawals").textContent=money(u.withdrawals);
- $("refEarnings").textContent=money(u.referralBalance);
- $("refBalance").textContent=money(u.referralBalance);
- $("miningRewards").textContent=money(u.miningRewards);
- $("accountEmail").textContent=u.email;
- $("accountCountry").textContent=u.country;
- $("refCode").textContent=u.code;
- $("refLink").value=location.origin+location.pathname+"?ref="+u.code;
- $("refCount").textContent=u.referred.length;
- $("refTotal").textContent=money(u.referralBalance);
- $("unread").textContent=u.notifications.filter(n=>!n.read).length;
- $("unread").classList.toggle("hidden",!u.notifications.some(n=>!n.read));
- $("activePlan").textContent=u.activePlan?"Active miner: Level "+u.activePlan.level:"No active miner";
- $("recentActivity").innerHTML=u.transactions.slice(0,3).map(t=>
-  `<div class="activity"><div class="row"><b>${esc(t.title)}</b><b class="green">${money(t.amount)}</b></div><small>${esc(t.date)} · ${esc(t.status)}</small></div>`
- ).join("") || '<p class="muted">No transactions yet.</p>';
- renderMining();
-}
-function renderMining(){
- const u=data();
- if(!u.activePlan){
-  $("miningStatus").textContent="● Mining Inactive";
-  $("timer").textContent="24:00:00";
-  $("estimate").textContent="₦0.00";
-  $("mineButton").textContent="▶ Start Miner";
-  return;
- }
- const remaining=Math.max(0,24*3600000-(Date.now()-u.miningStart));
- const h=Math.floor(remaining/3600000);
- const m=Math.floor(remaining%3600000/60000);
- const s=Math.floor(remaining%60000/1000);
- $("timer").textContent=[h,m,s].map(x=>String(x).padStart(2,"0")).join(":");
- $("miningStatus").textContent=remaining>0?"● Mining Active":"● Mining Cycle Complete";
- $("mineButton").textContent=remaining>0?"Mining in Progress":"Claim";
- // No real-world earnings are generated by this front-end demo.
- $("estimate").textContent="₦0.00";
- if(remaining===0)$("mineButton").textContent="Claim";
-}
-function mineAction(){
- const u=data();
- if(!u.activePlan){alert("Choose and activate a miner first.");showPage("plans");return;}
- if(Date.now()-u.miningStart<24*3600000){alert("Your mining cycle is still running.");return;}
- // Demo claim resets the timer; it does not create money.
- u.miningStart=Date.now();
- addTransaction("Mining cycle restarted",0,"Demo");
- save();renderAll();
- alert("Demo mining cycle restarted. No real earnings were credited.");
+async function refreshAll(){await loadProfile();renderProfile();await renderTransactions();await updateUnread();if(isAdmin())await renderAdmin()}
+async function renderTransactions(){
+ const q=query(collection(db,"transactions"),where("uid","==",uid()),orderBy("createdAt","desc"),limit(20));
+ const snap=await getDocs(q);const html=snap.docs.map(d=>{const t=d.data();return `<div class="activity"><div class="row"><b>${esc(t.title)}</b><b>${money(t.amount)}</b></div><small>${esc(t.status||"Recorded")}</small></div>`}).join("")||'<p class="muted">No transactions yet.</p>';
+ $("transactions").innerHTML=html;$("recentActivity").innerHTML=html;
 }
 function renderPlans(){
- $("plansList").innerHTML=PLANS.map(p=>`
- <div class="plan-item">
-  <div class="row">
-   <div><b>Level ${p.level} Miner</b><br>
-   <strong>${money(p.cost)}</strong><br>
-   <small>Illustrative target: ${money(p.target)} after one month*</small></div>
-   <button onclick="buyPlan(${p.level})">Activate</button>
-  </div>
- </div>`).join("")+
- '<small>*Targets are examples only and are not guaranteed or payable returns.</small>';
+ $("plansList").innerHTML=PLANS.map(p=>`<div class="plan-item"><div class="row"><div><b>Level ${p.level} Miner</b><br><strong>${money(p.cost)}</strong><br><small>Illustrative target: ${money(p.target)} after one month*</small></div><button disabled>Coming Soon</button></div></div>`).join("");
 }
-function buyPlan(level){
- const u=data(),p=PLANS.find(x=>x.level===level);
- if(u.balance<p.cost){alert("Insufficient available balance. Please deposit first.");showPage("deposit");return;}
- if(u.activePlan){alert("You already have an active miner in this demo.");return;}
- if(!confirm("Activate Level "+level+" for "+money(p.cost)+"?"))return;
- u.balance-=p.cost;
- u.activePlan={level,cost:p.cost,activated:Date.now()};
- u.miningStart=Date.now();
- addTransaction("Level "+level+" Miner activation",-p.cost);
- save();renderAll();showPage("mining");
-}
-function requestDeposit(){
+window.requestDeposit=async()=>{
  const amount=Number($("depositAmount").value);
- if(!Number.isFinite(amount)||amount<100){alert("Enter at least ₦100.");return;}
- data().depositsPending.push({amount,id:Date.now()});
- addTransaction("Deposit request",amount,"Pending verification");
- save();renderAll();alert("Deposit request submitted. Balance will change only after admin verification.");
- showPage("wallet");
+ if(!Number.isFinite(amount)||amount<100){alert("Enter at least ₦100.");return}
+ try{
+  const ref=await addDoc(collection(db,"deposits"),{uid:uid(),email:user.email,amount,status:"pending",createdAt:serverTimestamp()});
+  const text=`Hello Earnix Admin, I have made a deposit of ₦${amount}. My deposit request ID is ${ref.id}. I would like to submit my payment proof.`;
+  alert("Deposit request submitted. Your wallet will only be credited after the administrator verifies the transfer.");
+  window.open("https://wa.me/2348149043393?text="+encodeURIComponent(text),"_blank");
+  $("depositAmount").value="";await refreshAll();showPage("wallet");
+ }catch(e){alert("Could not submit deposit: "+e.message)}
+};
+window.requestWithdrawal=async()=>{
+ const name=$("accountName").value.trim(),bank=$("bankName").value.trim(),number=$("accountNumber").value.trim(),amount=Number($("withdrawAmount").value);
+ if(!name||!bank||!/^\d{10}$/.test(number)||!Number.isFinite(amount)||amount<=0){alert("Enter valid account details and amount.");return}
+ if(amount>Number(profile.balance||0)){alert("Your available balance is insufficient.");return}
+ try{
+  await addDoc(collection(db,"withdrawals"),{uid:uid(),email:user.email,amount,account:{name,bank,number},status:"pending",createdAt:serverTimestamp()});
+  alert("Withdrawal request submitted. It remains pending until reviewed. Your balance has not been deducted yet.");
+  $("withdrawAmount").value="";await refreshAll();showPage("wallet");
+ }catch(e){alert("Could not submit request: "+e.message)}
+};
+async function renderWallet(){await renderTransactions()}
+async function updateUnread(){
+ const q=query(collection(db,"notifications"),orderBy("createdAt","desc"),limit(50)),snap=await getDocs(q);
+ const seen=JSON.parse(localStorage.getItem("earnix_seen_"+uid())||"[]");
+ const unread=snap.docs.filter(d=>!seen.includes(d.id)).length;
+ msg("unread",String(unread));$("unread").classList.toggle("hidden",unread===0);
 }
-function requestWithdrawal(){
- const u=data(),name=$("accountName").value.trim(),bank=$("bankName").value.trim();
- const number=$("accountNumber").value.trim(),amount=Number($("withdrawAmount").value);
- if(!name||!bank||!/^\d{10}$/.test(number)||!Number.isFinite(amount)||amount<=0){alert("Enter valid account details and amount.");return;}
- if(amount>u.balance){alert("Insufficient available balance.");return;}
- u.account={name,bank,number};
- u.balance-=amount;
- u.withdrawalsPending.push({amount,id:Date.now(),account:{...u.account}});
- addTransaction("Withdrawal request",-amount,"Pending review");
- save();renderAll();alert("Withdrawal request submitted for administrator review.");
- showPage("wallet");
+async function renderNotifications(){
+ const snap=await getDocs(query(collection(db,"notifications"),orderBy("createdAt","desc"),limit(50)));
+ const seen=JSON.parse(localStorage.getItem("earnix_seen_"+uid())||"[]");
+ $("notificationList").innerHTML=snap.docs.map(d=>{const n=d.data();return `<div class="notice ${seen.includes(d.id)?"":"unread"}"><b>${esc(n.title)}</b><p>${esc(n.message)}</p><small>Earnix announcement</small><button class="small-btn" onclick="markRead('${d.id}')">Mark as read</button></div>`}).join("")||'<p class="muted">No notifications yet.</p>';
+ localStorage.setItem("earnix_seen_"+uid(),JSON.stringify(snap.docs.map(d=>d.id)));await updateUnread();
 }
-function renderWallet(){
- const u=data();
- $("transactions").innerHTML=u.transactions.map(t=>
- `<div class="activity"><div class="row"><b>${esc(t.title)}</b><b>${money(t.amount)}</b></div><small>${esc(t.date)} · ${esc(t.status)}</small></div>`
- ).join("")||'<p class="muted">No transactions yet.</p>';
+window.markRead=async id=>{const seen=JSON.parse(localStorage.getItem("earnix_seen_"+uid())||"[]");if(!seen.includes(id))seen.push(id);localStorage.setItem("earnix_seen_"+uid(),JSON.stringify(seen));await renderNotifications()};
+window.copyText=async value=>{try{await navigator.clipboard.writeText(value);alert("Copied!")}catch{prompt("Copy this text:",value)}};
+async function renderAdmin(){
+ $("adminPanel").classList.toggle("hidden",!isAdmin());if(!isAdmin())return;
+ const [ds,ws]=await Promise.all([
+  getDocs(query(collection(db,"deposits"),where("status","==","pending"))),
+  getDocs(query(collection(db,"withdrawals"),where("status","==","pending")))
+ ]);
+ $("pendingDeposits").innerHTML=ds.docs.map(d=>{const x=d.data();return `<div class="activity"><b>${esc(x.email)}</b><br>${money(x.amount)}<br><small>Request: ${esc(d.id)}</small><br><button class="small-btn" onclick="approveDeposit('${d.id}')">Approve Deposit</button> <button class="small-btn" onclick="rejectDeposit('${d.id}')">Reject</button></div>`}).join("")||"<small>None pending.</small>";
+ $("pendingWithdrawals").innerHTML=ws.docs.map(d=>{const x=d.data();return `<div class="activity"><b>${esc(x.email)}</b><br>${money(x.amount)}<br><small>${esc(x.account?.bank||"")} • ${esc(x.account?.number||"")}</small><br><button class="small-btn" onclick="approveWithdrawal('${d.id}')">Mark Paid</button> <button class="small-btn" onclick="rejectWithdrawal('${d.id}')">Reject</button></div>`}).join("")||"<small>None pending.</small>";
 }
-function copyText(value){
- if(navigator.clipboard)navigator.clipboard.writeText(value).then(()=>alert("Copied!")).catch(()=>prompt("Copy this:",value));
- else prompt("Copy this:",value);
-}
-function renderNotifications(){
- const u=data();
- $("notificationList").innerHTML=u.notifications.map((n,i)=>
- `<div class="notice ${n.read?"":"unread"}"><b>${esc(n.title)}</b><p>${esc(n.message)}</p><small>${esc(n.date||"Earnix Update")}</small>
- <button style="margin-top:8px" onclick="markRead(${i})">Mark as read</button></div>`
- ).join("")||'<p class="muted">No notifications.</p>';
- u.notifications.forEach(n=>n.read=true);
- save();$("unread").textContent="0";
-}
-function markRead(i){data().notifications[i].read=true;save();renderNotifications();}
-function publishNotice(){
- const title=$("noticeTitle").value.trim(),message=$("noticeMessage").value.trim();
- if(!title||!message){alert("Enter a title and message.");return;}
- Object.values(users).forEach(u=>u.notifications.unshift({title,message,read:false,date:new Date().toLocaleString()}));
- save();$("noticeTitle").value="";$("noticeMessage").value="";
- alert("Demo notification published to local accounts.");
- renderNotifications();
-}
-function renderAdmin(){
- const isAdmin=current===ADMIN_EMAIL;
- $("adminPanel").classList.toggle("hidden",!isAdmin);
- $("adminNotice").classList.toggle("hidden",!isAdmin);
- if(!isAdmin)return;
- let deposits="",withdrawals="";
- Object.values(users).forEach(u=>{
-  u.depositsPending.forEach(d=>deposits+=`<div class="activity">${esc(u.email)} — ${money(d.amount)} <button onclick="approveDeposit('${esc(u.email)}',${d.id})">Approve</button></div>`);
-  u.withdrawalsPending.forEach(w=>withdrawals+=`<div class="activity">${esc(u.email)} — ${money(w.amount)} <button onclick="approveWithdrawal('${esc(u.email)}',${w.id})">Mark Paid</button></div>`);
- });
- $("pendingDeposits").innerHTML=deposits||"<small>None pending.</small>";
- $("pendingWithdrawals").innerHTML=withdrawals||"<small>None pending.</small>";
-}
-function approveDeposit(email,id){
- const u=users[email],i=u.depositsPending.findIndex(x=>x.id===id);
- if(i<0)return;
- const d=u.depositsPending.splice(i,1)[0];
- u.balance+=d.amount;u.deposits+=d.amount;
- addFor(u,"Deposit approved",d.amount);
- save();renderAll();renderAdmin();
-}
-function approveWithdrawal(email,id){
- const u=users[email],i=u.withdrawalsPending.findIndex(x=>x.id===id);
- if(i<0)return;
- const w=u.withdrawalsPending.splice(i,1)[0];
- u.withdrawals+=w.amount;
- addFor(u,"Withdrawal marked paid",-w.amount);
- save();renderAdmin();
-}
-function addFor(u,title,amount){
- u.transactions.unshift({title,amount,status:"Verified",date:new Date().toLocaleString()});
-}
-function verifyReferral(){
- const email=$("referralEmail").value.trim().toLowerCase();
- if(!users[email]||email===current){alert("Enter a registered user's email.");return;}
- const u=data();
- if(u.referred.includes(email)){alert("This referral was already credited.");return;}
- u.referred.push(email);u.referralBalance+=50;u.balance+=50;
- addTransaction("Verified referral reward",50);
- addFor(users[email],"Referral registration verified",0);
- save();renderAll();alert("₦50 demo referral reward credited.");
-}
-function esc(s){
- return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-setInterval(()=>{if(current&&data()?.activePlan)renderMining();},1000);
-
-// Load an existing demo session
-if(session&&users[session]){current=session;openApp();}
-else showAuth(false);
+async function adminOnly(){if(!isAdmin())throw new Error("Administrator access required.")}
+window.approveDeposit=async id=>{
+ try{
+  await adminOnly();const depRef=doc(db,"deposits",id);
+  await runTransaction(db,async tx=>{
+   const ds=await tx.get(depRef);if(!ds.exists()||ds.data().status!=="pending")throw new Error("This request has already been processed.");
+   const d=ds.data(),uRef=doc(db,"users",d.uid),us=await tx.get(uRef);if(!us.exists())throw new Error("User account not found.");
+   const u=us.data();tx.update(uRef,{balance:Number(u.balance||0)+Number(d.amount),totalDeposits:Number(u.totalDeposits||0)+Number(d.amount)});
+   tx.update(depRef,{status:"approved",approvedAt:serverTimestamp(),approvedBy:user.email});
+   const tr=doc(collection(db,"transactions"));tx.set(tr,{uid:d.uid,title:"Deposit approved",amount:d.amount,status:"Verified",createdAt:serverTimestamp()});
+  });
+  alert("Deposit approved and credited once.");await renderAdmin();await refreshAll();
+ }catch(e){alert(e.message)}
+};
+window.rejectDeposit=async id=>{try{await adminOnly();await runTransaction(db,async tx=>{const r=doc(db,"deposits",id),s=await tx.get(r);if(!s.exists()||s.data().status!=="pending")throw new Error("Already processed.");tx.update(r,{status:"rejected",reviewedAt:serverTimestamp(),reviewedBy:user.email})});await renderAdmin()}catch(e){alert(e.message)}};
+window.approveWithdrawal=async id=>{
+ try{
+  await adminOnly();const wRef=doc(db,"withdrawals",id);
+  await runTransaction(db,async tx=>{
+   const ws=await tx.get(wRef);if(!ws.exists()||ws.data().status!=="pending")throw new Error("Already processed.");
+   const w=ws.data(),uRef=doc(db,"users",w.uid),us=await tx.get(uRef);if(!us.exists())throw new Error("User not found.");
+   const u=us.data();if(Number(u.balance||0)<Number(w.amount))throw new Error("User balance is no longer sufficient.");
+   tx.update(uRef,{balance:Number(u.balance)-Number(w.amount),totalWithdrawals:Number(u.totalWithdrawals||0)+Number(w.amount)});
+   tx.update(wRef,{status:"paid",paidAt:serverTimestamp(),reviewedBy:user.email});
+   const tr=doc(collection(db,"transactions"));tx.set(tr,{uid:w.uid,title:"Withdrawal paid",amount:-Number(w.amount),status:"Paid",createdAt:serverTimestamp()});
+  });
+  alert("Withdrawal marked as paid. Ensure the bank transfer was actually sent.");await renderAdmin();await refreshAll();
+ }catch(e){alert(e.message)}
+};
+window.rejectWithdrawal=async id=>{try{await adminOnly();await runTransaction(db,async tx=>{const r=doc(db,"withdrawals",id),s=await tx.get(r);if(!s.exists()||s.data().status!=="pending")throw new Error("Already processed.");tx.update(r,{status:"rejected",reviewedAt:serverTimestamp(),reviewedBy:user.email})});await renderAdmin()}catch(e){alert(e.message)}};
+window.verifyReferral=async()=>{
+ try{
+  await adminOnly();const email=$("referralEmail").value.trim().toLowerCase();if(!email)throw new Error("Enter the user's registered email.");
+  const q=query(collection(db,"users"),where("email","==",email)),snap=await getDocs(q);if(snap.empty)throw new Error("No user found.");
+  const referred=snap.docs[0],rdata=referred.data();if(!rdata.referredByCode)throw new Error("This user did not register using a referral link.");
+  const referrerSnap=await getDocs(query(collection(db,"users"),where("referralCode","==",rdata.referredByCode)));
+  if(referrerSnap.empty)throw new Error("Referrer not found.");
+  const referrer=referrerSnap.docs[0],ref=referrer.ref;
+  await runTransaction(db,async tx=>{
+   const fresh=await tx.get(ref);if(!fresh.exists())throw new Error("Referrer not found.");
+   const u=fresh.data(),credited=u.creditedReferralUids||[];
+   if(credited.includes(referred.id))throw new Error("This referral was already rewarded.");
+   tx.update(ref,{balance:Number(u.balance||0)+50,referralBalance:Number(u.referralBalance||0)+50,verifiedReferralCount:Number(u.verifiedReferralCount||0)+1,creditedReferralUids:[...credited,referred.id]});
+   const tr=doc(collection(db,"transactions"));tx.set(tr,{uid:ref.id,title:"Verified referral reward",amount:50,status:"Verified",createdAt:serverTimestamp()});
+  });
+  $("referralEmail").value="";alert("Referral verified and ₦50 credited.");await refreshAll();
+ }catch(e){alert(e.message)}
+};
+window.publishNotice=async()=>{
+ try{await adminOnly();const title=$("noticeTitle").value.trim(),message=$("noticeMessage").value.trim();if(!title||!message)throw new Error("Enter a title and message.");await addDoc(collection(db,"notifications"),{title,message,createdAt:serverTimestamp(),createdBy:user.email});$("noticeTitle").value="";$("noticeMessage").value="";alert("Announcement published.");await updateUnread()}catch(e){alert(e.message)}
+};
+function renderReferralStats(){msg("refCount",String(profile.verifiedReferralCount||0))}
+setInterval(()=>{if(user&&profile)renderReferralStats()},5000);
 </script>
 </body>
 </html>

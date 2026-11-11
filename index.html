@@ -3,381 +3,517 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050505">
-<title>Earnix | Rewards Dashboard</title>
-
+<title>EARNIX | Rewards Dashboard</title>
 <style>
 :root {
-  --black:#050505;
-  --panel:#0c1019;
-  --panel2:#111a2a;
-  --blue:#0878ff;
-  --bright:#28a0ff;
-  --text:#f4f7ff;
-  --muted:#8995a9;
-  --border:#1b2c45;
+ --black:#050505;--panel:#0c1019;--panel2:#111a2a;
+ --blue:#0878ff;--bright:#28a0ff;--text:#f4f7ff;
+ --muted:#8995a9;--border:#1b2c45;
 }
-* {box-sizing:border-box;margin:0;padding:0}
-body {
-  background:var(--black);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--black);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#080b12;border-right:1px solid var(--border);padding:25px 16px;position:fixed;inset:0 auto 0 0;overflow:auto}
+.logo{font-size:27px;font-weight:900;letter-spacing:1px;margin:5px 10px 35px}
+.logo span{color:var(--blue)}
+.nav-label{font-size:10px;color:var(--muted);letter-spacing:2px;margin:22px 12px 10px}
+.nav-btn{display:flex;align-items:center;gap:12px;width:100%;padding:13px 14px;margin:4px 0;border:1px solid transparent;border-radius:10px;background:transparent;color:#aab6ca;text-align:left;font-size:14px}
+.nav-btn:hover,.nav-btn.active{color:white;background:#0d1b31;border-color:#123e70}
+.nav-btn.active{box-shadow:inset 3px 0 var(--blue)}
+.main{margin-left:245px;width:calc(100% - 245px);padding:28px;max-width:1500px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px;flex-wrap:wrap}
+.topbar h1{font-size:25px}
+.topbar p{color:var(--muted);font-size:13px;margin-top:6px}
+.page{display:none}
+.page.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:linear-gradient(145deg,#101827,#090d15);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 10px 35px #0005}
+.card h3{font-size:14px;color:#b8c5d9;font-weight:500;margin-bottom:14px}
+.big{font-size:27px;font-weight:800;overflow-wrap:anywhere}
+.blue{color:var(--bright)}
+.small{font-size:12px;color:var(--muted);line-height:1.6}
+.welcome{padding:27px;border-radius:18px;margin-bottom:18px;background:linear-gradient(110deg,#07172e,#0c2b51,#07101e);border:1px solid #164c85}
+.welcome h2{font-size:24px;margin-bottom:9px}
+.welcome p{color:#b5c9e4;font-size:13px}
+.section-title{font-size:19px;margin:27px 0 15px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{border:0;border-radius:9px;padding:12px 17px;background:var(--blue);color:white;font-weight:700}
+.btn:hover{background:#0064d8}
+.btn.secondary{background:#111d30;border:1px solid #24466e}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.full{width:100%}
+.feature-icon{font-size:23px;margin-bottom:13px}
+.progress{height:8px;background:#1b293c;border-radius:20px;overflow:hidden;margin:14px 0}
+.progress span{display:block;height:100%;width:0;background:var(--blue)}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.field{display:grid;gap:7px;margin:13px 0}
+.field label{font-size:13px;color:#b8c5d9}
+.field input{width:100%;padding:13px;border:1px solid #263a55;border-radius:9px;color:white;background:#080d16;outline:none}
+.notice{padding:13px;border:1px solid #174b82;background:#07182b;border-radius:10px;color:#b8d9ff;font-size:12px;line-height:1.6;margin:12px 0}
+.badge{display:inline-block;border:1px solid #24517e;background:#10233b;color:#8bc8ff;border-radius:20px;padding:5px 9px;font-size:10px}
+.plan{border:1px solid #1e4775}
+.plan .price{font-size:25px;font-weight:800;color:var(--bright);margin:12px 0}
+.plan p{font-size:12px;color:var(--muted);line-height:1.7}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:450px;font-size:13px}
+th,td{padding:14px;text-align:left;border-bottom:1px solid var(--border)}
+th{color:var(--muted);font-weight:500}
+.empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+.footer{margin:35px 0 15px;color:#657187;font-size:11px;text-align:center}
+.mode-switch{display:flex;gap:5px;padding:5px;background:#0c1421;border:1px solid var(--border);border-radius:10px}
+.mode-switch button{border:0;background:transparent;color:var(--muted);padding:10px 12px;border-radius:7px;font-size:11px;font-weight:bold}
+.mode-switch button.active{background:#104078;color:white}
+.mobile-nav{display:none}
+@media(max-width:900px){
+ .sidebar{width:210px}
+ .main{margin-left:210px;width:calc(100% - 210px);padding:20px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-button,input,select,textarea {font:inherit}
-button {cursor:pointer}
-.app {display:flex;min-height:100vh}
-.sidebar {
-  width:245px;background:#080b12;border-right:1px solid var(--border);
-  padding:25px 16px;position:fixed;inset:0 auto 0 0;overflow:auto;
+@media(max-width:650px){
+ .sidebar{display:none}
+ .main{margin:0;width:100%;padding:18px 15px 90px}
+ .topbar h1{font-size:21px}
+ .grid{grid-template-columns:1fr 1fr;gap:10px}
+ .card{padding:15px}
+ .big{font-size:21px}
+ .welcome{padding:20px}
+ .mode-switch{width:100%}
+ .mode-switch button{flex:1}
+ .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:5;background:#080d16;border-top:1px solid var(--border);justify-content:space-around;padding:9px 3px calc(9px + env(safe-area-inset-bottom))}
+ .mobile-nav button{background:none;border:0;color:#8c9ab0;font-size:10px;display:grid;gap:4px;justify-items:center;padding:5px}
+ .mobile-nav button span:first-child{font-size:18px}
+ .mobile-nav button.active{color:var(--bright)}
 }
-.logo {font-size:27px;font-weight:900;letter-spacing:1px;margin:5px 10px 35px}
-.logo span {color:var(--blue)}
-.nav-label {font-size:10px;color:var(--muted);letter-spacing:2px;margin:22px 12px 10px}
-.nav-btn {
-  display:flex;align-items:center;gap:12px;width:100%;padding:13px 14px;
-  margin:4px 0;border:1px solid transparent;border-radius:10px;
-  background:transparent;color:#aab6ca;text-align:left;font-size:14px;
-}
-.nav-btn:hover,.nav-btn.active {
-  color:white;background:#0d1b31;border-color:#123e70;
-}
-.nav-btn.active {box-shadow:inset 3px 0 var(--blue)}
-.main {margin-left:245px;width:calc(100% - 245px);padding:28px;max-width:1500px}
-.topbar {display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}
-.topbar h1 {font-size:25px}
-.topbar p {color:var(--muted);font-size:13px;margin-top:6px}
-.avatar {
-  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
-  background:#102b50;border:1px solid var(--blue);font-weight:bold;
-}
-.page {display:none}
-.page.active {display:block}
-.grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.card {
-  background:linear-gradient(145deg,#101827,#090d15);
-  border:1px solid var(--border);border-radius:16px;padding:20px;
-  box-shadow:0 10px 35px #0005;
-}
-.card h3 {font-size:14px;color:#b8c5d9;font-weight:500;margin-bottom:14px}
-.big {font-size:27px;font-weight:800}
-.blue {color:var(--bright)}
-.muted {color:var(--muted)}
-.small {font-size:12px;color:var(--muted);line-height:1.6}
-.welcome {
-  padding:27px;border-radius:18px;margin-bottom:18px;
-  background:linear-gradient(110deg,#07172e,#0c2b51,#07101e);
-  border:1px solid #164c85;
-}
-.welcome h2 {font-size:24px;margin-bottom:9px}
-.welcome p {color:#b5c9e4;font-size:13px}
-.section-title {font-size:19px;margin:27px 0 15px}
-.actions {display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.btn {
-  border:0;border-radius:9px;padding:12px 17px;
-  background:var(--blue);color:white;font-weight:700;
-}
-.btn:hover {background:#0064d8}
-.btn.secondary {background:#111d30;border:1px solid #24466e}
-.btn:disabled {opacity:.45;cursor:not-allowed}
-.full {width:100%}
-.feature-icon {font-size:23px;margin-bottom:13px}
-.progress {height:8px;background:#1b293c;border-radius:20px;overflow:hidden;margin:14px 0}
-.progress span {display:block;height:100%;width:0;background:var(--blue)}
-.row {display:flex;justify-content:space-between;gap:10px;align-items:center}
-.stack {display:grid;gap:14px}
-.field {display:grid;gap:7px;margin:13px 0}
-.field label {font-size:13px;color:#b8c5d9}
-.field input,.field select,.field textarea {
-  width:100%;padding:13px;border:1px solid #263a55;border-radius:9px;
-  color:white;background:#080d16;outline:none;
-}
-.field input:focus,.field select:focus {border-color:var(--blue)}
-.notice {
-  padding:13px;border:1px solid #174b82;background:#07182b;
-  border-radius:10px;color:#b8d9ff;font-size:12px;line-height:1.6;
-}
-.table-wrap {overflow-x:auto}
-table {width:100%;border-collapse:collapse;min-width:500px;font-size:13px}
-th,td {padding:14px;text-align:left;border-bottom:1px solid var(--border)}
-th {color:var(--muted);font-weight:500}
-.status {color:#75baff}
-.plan {border:1px solid #1e4775}
-.plan .price {font-size:25px;font-weight:800;color:var(--bright);margin:12px 0}
-.plan p {font-size:12px;color:var(--muted);line-height:1.7}
-.mobile-nav {display:none}
-.empty {padding:25px;text-align:center;color:var(--muted);font-size:13px}
-.footer {margin:35px 0 15px;color:#657187;font-size:11px;text-align:center}
-@media(max-width:900px) {
- .sidebar {width:210px}
- .main {margin-left:210px;width:calc(100% - 210px);padding:20px}
- .grid {grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:650px) {
- .sidebar {display:none}
- .main {margin:0;width:100%;padding:18px 15px 90px}
- .topbar h1 {font-size:21px}
- .grid {grid-template-columns:1fr 1fr;gap:10px}
- .card {padding:15px}
- .big {font-size:21px}
- .welcome {padding:20px}
- .mobile-nav {
-   display:flex;position:fixed;bottom:0;left:0;right:0;z-index:5;
-   background:#080d16;border-top:1px solid var(--border);
-   justify-content:space-around;padding:9px 3px calc(9px + env(safe-area-inset-bottom));
- }
- .mobile-nav button {
-   background:none;border:0;color:#8c9ab0;font-size:10px;
-   display:grid;gap:4px;justify-items:center;padding:5px;
- }
- .mobile-nav button span:first-child {font-size:18px}
- .mobile-nav button.active {color:var(--bright)}
-}
-@media(max-width:360px) {.grid{grid-template-columns:1fr}}
+@media(max-width:360px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
 <div class="app">
 
 <aside class="sidebar">
-  <div class="logo">EARN<span>IX</span></div>
-  <div class="nav-label">MAIN MENU</div>
-  <button class="nav-btn active" data-page="home">⌂ &nbsp; Home</button>
-  <button class="nav-btn" data-page="mining">◷ &nbsp; Mining</button>
-  <button class="nav-btn" data-page="tasks">▤ &nbsp; Tasks</button>
-  <button class="nav-btn" data-page="referrals">♧ &nbsp; Refer & Earn</button>
-  <div class="nav-label">MY ACCOUNT</div>
-  <button class="nav-btn" data-page="wallet">▣ &nbsp; Wallet</button>
-  <button class="nav-btn" data-page="deposit">＋ &nbsp; Deposit</button>
-  <button class="nav-btn" data-page="withdraw">↗ &nbsp; Withdrawal</button>
-  <button class="nav-btn" data-page="upgrade">◆ &nbsp; Upgrade</button>
-  <div class="nav-label">MORE</div>
-  <button class="nav-btn" data-page="statistics">▥ &nbsp; Statistics</button>
-  <button class="nav-btn" data-page="history">◴ &nbsp; History</button>
-  <button class="nav-btn" data-page="support">? &nbsp; Support</button>
-  <button class="nav-btn" data-page="admin">⚙ &nbsp; Admin</button>
+ <div class="logo">EARN<span>IX</span></div>
+ <div class="nav-label">MAIN MENU</div>
+ <button class="nav-btn active" data-page="home">⌂ &nbsp; Home</button>
+ <button class="nav-btn" data-page="mining">◷ &nbsp; Mining</button>
+ <button class="nav-btn" data-page="tasks">▤ &nbsp; Tasks</button>
+ <button class="nav-btn" data-page="referrals">♧ &nbsp; Refer & Earn</button>
+ <div class="nav-label">MY ACCOUNT</div>
+ <button class="nav-btn" data-page="wallet">▣ &nbsp; Wallet</button>
+ <button class="nav-btn" data-page="buy">＋ &nbsp; Buy Demo Credits</button>
+ <button class="nav-btn" data-page="withdraw">↗ &nbsp; Withdrawal</button>
+ <button class="nav-btn" data-page="upgrade">◆ &nbsp; Upgrade Miner</button>
+ <div class="nav-label">MORE</div>
+ <button class="nav-btn" data-page="statistics">▥ &nbsp; Statistics</button>
+ <button class="nav-btn" data-page="history">◴ &nbsp; History</button>
+ <button class="nav-btn" data-page="support">? &nbsp; Support</button>
 </aside>
 
 <main class="main">
 <header class="topbar">
-  <div>
-    <h1 id="pageTitle">Dashboard</h1>
-    <p>Your Earnix account overview</p>
-  </div>
-  <div class="avatar" id="avatar">E</div>
+ <div>
+  <h1 id="pageTitle">Dashboard</h1>
+  <p>Your EARNIX account overview</p>
+ </div>
+ <div class="mode-switch">
+  <button id="demoMode" class="active">DEMO ACCOUNT</button>
+  <button id="realMode">REAL ACCOUNT</button>
+ </div>
 </header>
 
 <section class="page active" id="home">
-  <div class="welcome">
-    <h2>Welcome to Earnix<span class="blue">.</span></h2>
-    <p>Your rewards dashboard. Track sessions, tasks and account activity.</p>
-    <div class="actions">
-      <button class="btn" onclick="showPage('mining')">Open Mining</button>
-      <button class="btn secondary" onclick="showPage('wallet')">View Wallet</button>
-    </div>
+ <div class="welcome">
+  <h2>Welcome to Earnix<span class="blue">.</span></h2>
+  <p>Your rewards dashboard. Explore your account and experience demo mining.</p>
+  <div class="actions">
+   <button class="btn" onclick="showPage('mining')">Open Mining</button>
+   <button class="btn secondary" onclick="showPage('upgrade')">Upgrade Miner</button>
   </div>
-  <div class="grid">
-    <div class="card"><h3>Total Balance</h3><div class="big">₦0.00</div><p class="small">Preview balance</p></div>
-    <div class="card"><h3>Pending Rewards</h3><div class="big blue">₦0.00</div><p class="small">Not available for withdrawal</p></div>
-    <div class="card"><h3>Total Earned</h3><div class="big">₦0.00</div><p class="small">Demo account</p></div>
-  </div>
-  <h2 class="section-title">Quick Access</h2>
-  <div class="grid">
-    <div class="card"><div class="feature-icon">◷</div><h3>Mining Session</h3><p class="small">View your 24-hour session timer.</p><button class="btn secondary full" onclick="showPage('mining')">Open</button></div>
-    <div class="card"><div class="feature-icon">▤</div><h3>Tasks</h3><p class="small">Discover upcoming reward tasks.</p><button class="btn secondary full" onclick="showPage('tasks')">Open</button></div>
-    <div class="card"><div class="feature-icon">♧</div><h3>Referrals</h3><p class="small">Preview your referral area.</p><button class="btn secondary full" onclick="showPage('referrals')">Open</button></div>
-  </div>
-</section>
-
-<section class="page" id="mining">
-  <div class="card">
-    <div class="feature-icon">◷</div>
-    <h2>24-Hour Mining Session</h2>
-    <p class="small">This is a demonstration timer only. It does not mine currency or create real earnings.</p>
-    <h2 class="big blue" id="timer" style="margin:25px 0">24:00:00</h2>
-    <div class="progress"><span id="timerProgress"></span></div>
-    <button class="btn" id="startTimer">Start Demo Timer</button>
-    <p class="small" id="timerMessage" style="margin-top:13px">No active session.</p>
-  </div>
-</section>
-
-<section class="page" id="tasks">
-  <div class="card">
-    <div class="row"><h2>Available Tasks</h2><span class="status">COMING SOON</span></div>
-    <p class="small" style="margin-top:12px">Tasks and rewards will appear here when the feature is ready and verified.</p>
-    <div class="empty">No tasks available yet.</div>
-  </div>
-</section>
-
-<section class="page" id="referrals">
-  <div class="card">
-    <h2>Refer & Earn</h2>
-    <p class="small" style="margin:12px 0">Your referral tools will be available after account and referral services are connected.</p>
-    <div class="field"><label>Your referral link</label><input value="Referral link not available yet" readonly></div>
-    <button class="btn secondary" disabled>Copy Referral Link</button>
-    <div class="grid" style="margin-top:20px">
-      <div class="card"><h3>Total Referrals</h3><div class="big">0</div></div>
-      <div class="card"><h3>Referral Rewards</h3><div class="big">₦0.00</div></div>
-    </div>
-  </div>
+ </div>
+ <div class="notice" id="accountNotice">You are viewing the DEMO ACCOUNT. Demo credits have no cash value.</div>
+ <div class="grid">
+  <div class="card"><h3 id="balanceTitle">Demo Balance</h3><div class="big blue" id="homeBalance">₦10,000</div><p class="small">Account credits</p></div>
+  <div class="card"><h3>Simulated Rewards</h3><div class="big" id="homeRewards">₦0</div><p class="small">Demo rewards only</p></div>
+  <div class="card"><h3>Active Miner</h3><div class="big" id="homeLevel">None</div><p class="small">Current upgrade level</p></div>
+ </div>
+ <h2 class="section-title">Quick Access</h2>
+ <div class="grid">
+  <div class="card"><div class="feature-icon">◷</div><h3>Mining Session</h3><p class="small">View your 24-hour demo timer.</p><button class="btn secondary full" onclick="showPage('mining')">Open</button></div>
+  <div class="card"><div class="feature-icon">＋</div><h3>Buy Demo Credits</h3><p class="small">Explore virtual credit packages.</p><button class="btn secondary full" onclick="showPage('buy')">Open</button></div>
+  <div class="card"><div class="feature-icon">◆</div><h3>Upgrade Miner</h3><p class="small">Activate a demo miner level.</p><button class="btn secondary full" onclick="showPage('upgrade')">Open</button></div>
+ </div>
 </section>
 
 <section class="page" id="wallet">
-  <div class="grid">
-    <div class="card"><h3>Total Wallet</h3><div class="big">₦0.00</div></div>
-    <div class="card"><h3>Available</h3><div class="big blue">₦0.00</div></div>
-    <div class="card"><h3>Pending</h3><div class="big">₦0.00</div></div>
-  </div>
-  <div class="notice" style="margin-top:18px">Wallet balances are display placeholders. No real funds are held or transferred by this preview.</div>
+ <div class="grid">
+  <div class="card"><h3 id="walletTitle">Demo Wallet</h3><div class="big blue" id="walletBalance">₦10,000</div></div>
+  <div class="card"><h3>Simulated Rewards</h3><div class="big" id="walletRewards">₦0</div></div>
+  <div class="card"><h3>Active Miner</h3><div class="big" id="walletLevel">None</div></div>
+ </div>
+ <div class="notice">Demo credits and simulated rewards cannot be withdrawn, transferred or converted into real Naira.</div>
+ <button class="btn" onclick="showPage('buy')">Buy Demo Credits</button>
 </section>
 
-<section class="page" id="deposit">
-  <div class="card">
-    <h2>Naira Deposit</h2>
-    <p class="small" style="margin:12px 0">Deposit services are not connected. Do not send money to any address or account claiming to be an Earnix deposit account.</p>
-    <div class="field"><label>Amount (NGN)</label><input type="number" placeholder="Enter amount" disabled></div>
-    <button class="btn full" disabled>Deposit Unavailable</button>
-    <h3 class="section-title">Deposit History</h3>
-    <div class="empty">No deposit records.</div>
+<section class="page" id="buy">
+ <div class="card">
+  <h2>Buy Demo Credits</h2>
+  <p class="small" style="margin-top:10px">Choose a virtual credit package to see its details.</p>
+  <div class="notice">These packages are previews only. Payment checkout is not connected. Demo credits have no cash value and cannot be withdrawn or exchanged for money.</div>
+ </div>
+ <h2 class="section-title">Available Packages</h2>
+ <div class="grid" id="packages"></div>
+ <div class="card" style="margin-top:16px">
+  <h3>Demo Credit Calculator</h3>
+  <div class="field">
+   <label>Enter a Naira package amount</label>
+   <input id="customPrice" type="number" min="100" placeholder="Example: 3000">
   </div>
-</section>
-
-<section class="page" id="withdraw">
-  <div class="card">
-    <h2>Bank Withdrawal</h2>
-    <p class="small" style="margin:12px 0">Bank withdrawals are not active. No bank details are collected or stored on this preview.</p>
-    <div class="field"><label>Bank</label><select disabled><option>Select Nigerian bank</option></select></div>
-    <div class="field"><label>Account Number</label><input placeholder="Account number" disabled></div>
-    <div class="field"><label>Account Name</label><input placeholder="Account name" disabled></div>
-    <div class="field"><label>Amount (NGN)</label><input type="number" placeholder="Enter amount" disabled></div>
-    <button class="btn full" disabled>Withdrawals Unavailable</button>
-    <h3 class="section-title">Withdrawal History</h3>
-    <div class="empty">No withdrawal records.</div>
-  </div>
+  <div class="big blue" id="customCredits">30,000 demo credits</div>
+  <p class="small">Preview calculation: package amount × 10. No payment is processed.</p>
+ </div>
 </section>
 
 <section class="page" id="upgrade">
-  <div class="notice">These are proposed plan examples for design preview only. They are not investment offers, guaranteed returns or active payment plans. No deposits or payouts are enabled.</div>
-  <h2 class="section-title">Beginner Levels</h2>
-  <div class="grid">
-    <div class="card plan"><h3>Beginner Level 1</h3><div class="price">₦100</div><p>Proposed example amount<br>Target shown for discussion: ₦150<br>Duration: One month</p><button class="btn secondary full" disabled>Not Active</button></div>
-    <div class="card plan"><h3>Beginner Level 2</h3><div class="price">₦500</div><p>Proposed example amount<br>Target shown for discussion: ₦750<br>Duration: One month</p><button class="btn secondary full" disabled>Not Active</button></div>
-    <div class="card plan"><h3>Beginner Level 3</h3><div class="price">₦1,000</div><p>Proposed example amount<br>Target shown for discussion: ₦1,500<br>Duration: One month</p><button class="btn secondary full" disabled>Not Active</button></div>
-    <div class="card plan"><h3>Beginner Level 4</h3><div class="price">₦5,000</div><p>Proposed example amount<br>Target shown for discussion: ₦7,500<br>Duration: One month</p><button class="btn secondary full" disabled>Not Active</button></div>
-    <div class="card plan"><h3>Beginner Level 5</h3><div class="price">₦10,000</div><p>Proposed example amount<br>Target shown for discussion: ₦15,000<br>Duration: One month</p><button class="btn secondary full" disabled>Not Active</button></div>
-    <div class="card plan"><h3>Growth</h3><div class="price">COMING SOON</div><p>More information will be provided after review.</p><button class="btn secondary full" disabled>Coming Soon</button></div>
+ <div class="notice">Demo upgrade activation uses virtual demo credits only. These levels are for testing the dashboard and do not create real income.</div>
+ <h2 class="section-title">Beginner Levels</h2>
+ <div class="grid" id="levels"></div>
+ <div class="card" style="margin-top:16px">
+  <h3>Your Current Miner</h3>
+  <div class="big blue" id="currentLevel">None</div>
+  <p class="small" id="minerInfo">Choose a demo upgrade level to activate your miner.</p>
+ </div>
+</section>
+
+<section class="page" id="mining">
+ <div class="card">
+  <div class="feature-icon">◷</div>
+  <h2>Demo Mining Session</h2>
+  <p class="small">Your selected demo level controls the simulated reward rate.</p>
+  <div class="notice">The reward counter is simulated demo credit activity. It is not real money or guaranteed income.</div>
+  <h3 style="margin-top:20px">Simulated Mining Rewards</h3>
+  <div class="big blue" id="miningRewards">₦0</div>
+  <p class="small">Demo credits accumulated in this session</p>
+  <h3 style="margin-top:25px">24-Hour Timer</h3>
+  <div class="big" id="timer" style="margin:15px 0">24:00:00</div>
+  <div class="progress"><span id="timerProgress"></span></div>
+  <p class="small" id="miningStatus">Activate a demo miner to begin.</p>
+  <button class="btn" id="startMining">Start Demo Mining</button>
+ </div>
+</section>
+
+<section class="page" id="tasks">
+ <div class="card">
+  <div class="row"><h2>Available Tasks</h2><span class="badge">COMING SOON</span></div>
+  <p class="small" style="margin-top:12px">Tasks are being prepared and will appear here when available.</p>
+  <div class="empty">No tasks available yet.</div>
+ </div>
+</section>
+
+<section class="page" id="referrals">
+ <div class="card">
+  <h2>Refer & Earn</h2>
+  <p class="small" style="margin:12px 0">Referral services will be available when secure accounts and referral tracking are connected.</p>
+  <div class="field"><label>Referral link</label><input value="Not available yet" readonly></div>
+  <div class="big">0</div><p class="small">Total referrals</p>
+ </div>
+</section>
+
+<section class="page" id="withdraw">
+ <div class="card">
+  <h2>Bank Withdrawal</h2>
+  <span class="badge">WITHDRAWALS ON HOLD</span>
+  <p class="small" style="margin:12px 0">Nigerian bank withdrawal services are planned but are not operational yet.</p>
+  <div class="notice">Withdrawals are unavailable at this time. This restriction must be understood before any real-money deposit is considered. Demo credits and simulated rewards cannot be withdrawn.</div>
+  <h3 class="section-title">Planned Withdrawal Method</h3>
+  <div class="card">
+   <h3>Nigerian Bank Transfer</h3>
+   <p class="small">Supported bank details and payout requirements will be shown when a secure payout provider is connected.</p>
   </div>
+  <button class="btn secondary full" disabled style="margin-top:15px">Withdrawals Currently Unavailable</button>
+ </div>
 </section>
 
 <section class="page" id="statistics">
-  <div class="grid">
-    <div class="card"><h3>Mining Sessions</h3><div class="big">0</div></div>
-    <div class="card"><h3>Tasks Completed</h3><div class="big">0</div></div>
-    <div class="card"><h3>Total Rewards</h3><div class="big">₦0.00</div></div>
-  </div>
-  <div class="card" style="margin-top:18px"><h3>Account Statistics</h3><div class="empty">Statistics will appear when connected to the backend.</div></div>
+ <div class="grid">
+  <div class="card"><h3>Active Miner</h3><div class="big" id="statLevel">None</div></div>
+  <div class="card"><h3>Demo Rewards</h3><div class="big blue" id="statRewards">₦0</div></div>
+  <div class="card"><h3>Demo Balance</h3><div class="big" id="statBalance">₦10,000</div></div>
+ </div>
 </section>
 
 <section class="page" id="history">
-  <div class="card">
-    <h2>Transaction History</h2>
-    <div class="table-wrap" style="margin-top:15px">
-      <table><thead><tr><th>Activity</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
-      <tbody><tr><td colspan="4" class="empty">No activity recorded.</td></tr></tbody></table>
-    </div>
+ <div class="card">
+  <h2>Demo Activity History</h2>
+  <div class="table-wrap" style="margin-top:15px">
+   <table>
+    <thead><tr><th>Activity</th><th>Details</th><th>Date</th></tr></thead>
+    <tbody id="historyRows"><tr><td colspan="3" class="empty">No activity recorded.</td></tr></tbody>
+   </table>
   </div>
+ </div>
 </section>
 
 <section class="page" id="support">
-  <div class="card">
-    <h2>Earnix Support</h2>
-    <p class="small" style="margin:12px 0">Need help? Support services will be added here.</p>
-    <div class="field"><label>Subject</label><input placeholder="What do you need help with?" disabled></div>
-    <div class="field"><label>Message</label><textarea rows="4" placeholder="Write your message" disabled></textarea></div>
-    <button class="btn" disabled>Send Message</button>
-  </div>
+ <div class="card">
+  <h2>Earnix Support</h2>
+  <p class="small" style="margin-top:12px">Support services will be added when the secure backend is ready.</p>
+  <div class="notice">This preview does not submit or store support messages.</div>
+ </div>
 </section>
 
-<section class="page" id="admin">
-  <div class="notice">Admin preview only. This page is not protected by administrator authentication. Do not use it to manage real users, money or private information.</div>
-  <div class="grid" style="margin-top:18px">
-    <div class="card"><h3>Total Users</h3><div class="big">0</div></div>
-    <div class="card"><h3>Pending Deposits</h3><div class="big">0</div></div>
-    <div class="card"><h3>Pending Withdrawals</h3><div class="big">0</div></div>
-  </div>
-  <div class="card" style="margin-top:18px"><h3>Admin Tools</h3><p class="small">User management, task management and transaction review require secure server-side administrator permissions.</p></div>
-</section>
-
-<div class="footer">EARNIX © 2026 · Dashboard Preview</div>
+<div class="footer">EARNIX © 2026 · Demo Dashboard</div>
 </main>
 </div>
 
 <nav class="mobile-nav">
-  <button class="active" data-page="home"><span>⌂</span>Home</button>
-  <button data-page="mining"><span>◷</span>Mining</button>
-  <button data-page="tasks"><span>▤</span>Tasks</button>
-  <button data-page="wallet"><span>▣</span>Wallet</button>
-  <button data-page="upgrade"><span>◆</span>Upgrade</button>
+ <button class="active" data-page="home"><span>⌂</span>Home</button>
+ <button data-page="mining"><span>◷</span>Mining</button>
+ <button data-page="upgrade"><span>◆</span>Upgrade</button>
+ <button data-page="wallet"><span>▣</span>Wallet</button>
+ <button data-page="buy"><span>＋</span>Credits</button>
 </nav>
 
 <script>
-const titles = {
- home:"Dashboard", mining:"Mining", tasks:"Tasks",
- referrals:"Refer & Earn", wallet:"My Wallet", deposit:"Deposit",
- withdraw:"Withdrawal", upgrade:"Upgrade", statistics:"Statistics",
- history:"History", support:"Support", admin:"Admin Preview"
+const titles={
+ home:"Dashboard",mining:"Mining",tasks:"Tasks",
+ referrals:"Refer & Earn",wallet:"My Wallet",buy:"Buy Demo Credits",
+ withdraw:"Withdrawal",upgrade:"Upgrade Miner",statistics:"Statistics",
+ history:"History",support:"Support"
 };
 
-function showPage(id) {
- document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
- const page = document.getElementById(id);
- if (!page) return;
+const packages=[
+ [100,1000],[500,5000],[1000,10000],[2000,20000],
+ [5000,50000],[10000,100000],[20000,200000],
+ [50000,500000],[100000,1000000]
+];
+
+const levels=[
+ {name:"Beginner Level 1",cost:100,rate:1},
+ {name:"Beginner Level 2",cost:500,rate:5},
+ {name:"Beginner Level 3",cost:1000,rate:10},
+ {name:"Beginner Level 4",cost:5000,rate:50},
+ {name:"Beginner Level 5",cost:10000,rate:100}
+];
+
+let mode="demo";
+let demoBalance=10000;
+let demoRewards=0;
+let activeLevel=null;
+let mining=false;
+let secondsLeft=86400;
+let timerInterval=null;
+let rewardInterval=null;
+let sessionReward=0;
+let activity=[];
+
+function money(n){
+ return "₦"+Math.floor(n).toLocaleString("en-NG");
+}
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ const page=document.getElementById(id);
+ if(!page)return;
  page.classList.add("active");
- document.getElementById("pageTitle").textContent = titles[id] || "Earnix";
- document.querySelectorAll("[data-page]").forEach(b => {
-   b.classList.toggle("active", b.dataset.page === id);
+ document.getElementById("pageTitle").textContent=titles[id]||"Earnix";
+ document.querySelectorAll("[data-page]").forEach(b=>{
+  b.classList.toggle("active",b.dataset.page===id);
  });
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-document.querySelectorAll("[data-page]").forEach(button => {
- button.addEventListener("click", () => showPage(button.dataset.page));
+document.querySelectorAll("[data-page]").forEach(button=>{
+ button.addEventListener("click",()=>showPage(button.dataset.page));
 });
 
-let timerInterval = null;
-let secondsLeft = 86400;
-const timerDisplay = document.getElementById("timer");
-const timerMessage = document.getElementById("timerMessage");
-const progress = document.getElementById("timerProgress");
-
-function renderTimer() {
- const h = String(Math.floor(secondsLeft/3600)).padStart(2,"0");
- const m = String(Math.floor((secondsLeft%3600)/60)).padStart(2,"0");
- const s = String(secondsLeft%60).padStart(2,"0");
- timerDisplay.textContent = `${h}:${m}:${s}`;
- progress.style.width = ((86400-secondsLeft)/86400*100)+"%";
+function addActivity(type,detail){
+ activity.unshift({type,detail,date:new Date().toLocaleString()});
+ renderHistory();
 }
 
-document.getElementById("startTimer").addEventListener("click", function() {
- if (timerInterval) return;
- timerMessage.textContent = "Demo timer running. This does not generate money.";
- this.disabled = true;
- timerInterval = setInterval(() => {
-   secondsLeft--;
-   renderTimer();
-   if (secondsLeft <= 0) {
-     clearInterval(timerInterval);
-     timerInterval = null;
-     timerMessage.textContent = "Demo timer completed.";
-     document.getElementById("startTimer").disabled = false;
-   }
+function renderHistory(){
+ const body=document.getElementById("historyRows");
+ if(!activity.length){
+  body.innerHTML='<tr><td colspan="3" class="empty">No activity recorded.</td></tr>';
+  return;
+ }
+ body.innerHTML=activity.map(item=>
+  `<tr><td>${item.type}</td><td>${item.detail}</td><td>${item.date}</td></tr>`
+ ).join("");
+}
+
+function updateDisplay(){
+ const isDemo=mode==="demo";
+ const balance=isDemo?demoBalance:0;
+ const rewards=isDemo?demoRewards:0;
+ const level=isDemo?(activeLevel?activeLevel.name:"None"):"Not active";
+
+ document.getElementById("homeBalance").textContent=money(balance);
+ document.getElementById("homeRewards").textContent=money(rewards);
+ document.getElementById("homeLevel").textContent=level;
+ document.getElementById("balanceTitle").textContent=isDemo?"Demo Balance":"Real Balance";
+ document.getElementById("walletTitle").textContent=isDemo?"Demo Wallet":"Real Account Wallet";
+ document.getElementById("walletBalance").textContent=money(balance);
+ document.getElementById("walletRewards").textContent=money(rewards);
+ document.getElementById("walletLevel").textContent=level;
+ document.getElementById("statLevel").textContent=level;
+ document.getElementById("statRewards").textContent=money(rewards);
+ document.getElementById("statBalance").textContent=money(balance);
+ document.getElementById("modeBadge");
+ document.getElementById("accountNotice").textContent=isDemo
+  ?"You are viewing the DEMO ACCOUNT. Demo credits and simulated rewards have no cash value."
+  :"You are viewing the REAL ACCOUNT preview. Real deposits, earnings and withdrawals are not connected.";
+ document.getElementById("demoMode").classList.toggle("active",isDemo);
+ document.getElementById("realMode").classList.toggle("active",!isDemo);
+ document.getElementById("miningRewards").textContent=money(sessionReward);
+ document.getElementById("currentLevel").textContent=level;
+ document.getElementById("minerInfo").textContent=activeLevel
+  ? "Demo rate: "+activeLevel.rate+" credits per hour. Simulated only."
+  :"Activate a demo upgrade level to try mining.";
+}
+
+function setMode(next){
+ mode=next;
+ updateDisplay();
+ if(next==="real"){
+  document.getElementById("miningStatus").textContent="Real mining is not operational.";
+  alert("Real Account preview: real payments and real mining are not connected. Your demo balance remains separate.");
+ }else{
+  document.getElementById("miningStatus").textContent=activeLevel
+   ?"Your demo miner is ready.":"Activate a demo miner to begin.";
+ }
+}
+
+document.getElementById("demoMode").onclick=()=>setMode("demo");
+document.getElementById("realMode").onclick=()=>setMode("real");
+
+function renderPackages(){
+ document.getElementById("packages").innerHTML=packages.map(p=>`
+  <div class="card plan">
+   <h3>Demo Credit Package</h3>
+   <div class="price">${money(p[0])}</div>
+   <p><strong>${money(p[1])} demo credits</strong></p>
+   <p style="margin:10px 0">Virtual credits only. No cash value.</p>
+   <button class="btn secondary full" disabled>Checkout Not Connected</button>
+  </div>
+ `).join("");
+}
+
+function renderLevels(){
+ document.getElementById("levels").innerHTML=levels.map((level,index)=>`
+  <div class="card plan">
+   <h3>${level.name}</h3>
+   <div class="price">${money(level.cost)}</div>
+   <p>Demo activation cost</p>
+   <p>Simulated rate: ${level.rate} credits/hour</p>
+   <p style="margin:9px 0">Demo credits only</p>
+   <button class="btn full" onclick="activateLevel(${index})">
+    ${activeLevel&&activeLevel.name===level.name?"Activated":"Activate Demo Level"}
+   </button>
+  </div>
+ `).join("");
+}
+
+function activateLevel(index){
+ if(mode!=="demo"){
+  alert("Switch to Demo Account to activate a demo miner.");
+  return;
+ }
+ const level=levels[index];
+ if(activeLevel&&activeLevel.name===level.name){
+  alert("This demo level is already active.");
+  return;
+ }
+ if(demoBalance<level.cost){
+  alert("Your demo balance is not enough for this level. You can reset the demo wallet to its starting balance for testing.");
+  return;
+ }
+ if(mining){
+  alert("Stop or complete the current demo session before changing your miner.");
+  return;
+ }
+ demoBalance-=level.cost;
+ activeLevel=level;
+ addActivity("Demo upgrade",level.name+" activated using demo credits");
+ renderLevels();
+ updateDisplay();
+ document.getElementById("miningStatus").textContent="Your "+level.name+" demo miner is ready.";
+ alert(level.name+" activated in Demo Account.");
+}
+
+function renderTimer(){
+ const h=String(Math.floor(secondsLeft/3600)).padStart(2,"0");
+ const m=String(Math.floor((secondsLeft%3600)/60)).padStart(2,"0");
+ const s=String(secondsLeft%60).padStart(2,"0");
+ document.getElementById("timer").textContent=`${h}:${m}:${s}`;
+ document.getElementById("timerProgress").style.width=((86400-secondsLeft)/86400*100)+"%";
+}
+
+function stopMining(message){
+ clearInterval(timerInterval);
+ clearInterval(rewardInterval);
+ timerInterval=null;
+ rewardInterval=null;
+ mining=false;
+ document.getElementById("startMining").disabled=false;
+ document.getElementById("startMining").textContent="Start New Demo Session";
+ document.getElementById("miningStatus").textContent=message;
+}
+
+document.getElementById("startMining").addEventListener("click",()=>{
+ if(mode!=="demo"){
+  alert("Switch to Demo Account to use demo mining.");
+  return;
+ }
+ if(!activeLevel){
+  alert("Please activate a demo upgrade level first.");
+  showPage("upgrade");
+  return;
+ }
+ if(mining)return;
+
+ secondsLeft=86400;
+ sessionReward=0;
+ mining=true;
+ renderTimer();
+ updateDisplay();
+ document.getElementById("startMining").disabled=true;
+ document.getElementById("startMining").textContent="Mining Demo...";
+ document.getElementById("miningStatus").textContent="Demo session running. Simulated credits only.";
+ addActivity("Demo mining","24-hour demo session started");
+
+ const perSecond=activeLevel.rate/3600;
+ rewardInterval=setInterval(()=>{
+  sessionReward+=perSecond;
+  demoRewards+=perSecond;
+  updateDisplay();
+ },1000);
+
+ timerInterval=setInterval(()=>{
+  secondsLeft--;
+  renderTimer();
+  if(secondsLeft<=0){
+   stopMining("Demo session completed. No real money was earned.");
+   addActivity("Demo mining","Demo session completed");
+  }
  },1000);
 });
 
+document.getElementById("customPrice").addEventListener("input",event=>{
+ const amount=Number(event.target.value);
+ const credits=amount>0?amount*10:0;
+ document.getElementById("customCredits").textContent=
+  credits.toLocaleString("en-NG")+" demo credits";
+});
+
+renderPackages();
+renderLevels();
 renderTimer();
+renderHistory();
+updateDisplay();
 </script>
 </body>
 </html>
-

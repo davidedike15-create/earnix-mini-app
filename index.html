@@ -245,10 +245,38 @@ $("authForm").addEventListener("submit",async e=>{
 function friendlyError(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-credential":"Incorrect email or password.","auth/weak-password":"Use a stronger password with at least 6 characters.","auth/invalid-email":"Enter a valid email address."};return m[e.code]||e.message||"Something went wrong."}
 $("switchAuth").onclick=e=>{e.preventDefault();showAuth(true)};
 async function loadProfile(){
- const snap=await getDoc(userRef());
- if(!snap.exists())throw new Error("Your account profile is missing. Contact the administrator.");
- profile=snap.data();
+ const ref=userRef();
+ const snap=await getDoc(ref);
+
+ if(snap.exists()){
+  profile=snap.data();
+  return;
+ }
+
+ const newProfile={
+  uid:user.uid,
+  email:user.email,
+  country:"Nigeria",
+  referralCode:"EX"+user.uid.slice(0,8).toUpperCase(),
+  referredByCode:"",
+  balance:0,
+  totalDeposits:0,
+  totalWithdrawals:0,
+  referralBalance:0,
+  verifiedReferralCount:0,
+  createdAt:serverTimestamp()
+ };
+
+ await setDoc(ref,newProfile);
+ const created=await getDoc(ref);
+
+ if(!created.exists()){
+  throw new Error("Could not create your account profile.");
+ }
+
+ profile=created.data();
 }
+
 async function openApp(){
  $("auth").classList.add("hidden");$("main").classList.remove("hidden");
  await loadProfile();renderProfile();showPage("mining");await refreshAll();

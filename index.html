@@ -245,7 +245,7 @@ $("authForm").addEventListener("submit",async e=>{
 function friendlyError(e){const m={"auth/email-already-in-use":"This email already has an account. Please log in.","auth/invalid-credential":"Incorrect email or password.","auth/weak-password":"Use a stronger password with at least 6 characters.","auth/invalid-email":"Enter a valid email address."};return m[e.code]||e.message||"Something went wrong."}
 $("switchAuth").onclick=e=>{e.preventDefault();showAuth(true)};
 async function loadProfile(){
- const ref=userRef();
+  ref=userRef();
  const snap=await getDoc(ref);
 
  if(snap.exists()){
@@ -258,7 +258,8 @@ async function loadProfile(){
   email:user.email,
   country:"Nigeria",
   
- referralCode:"EX"+user.uid.slice(0,8).toUpperCase(),
+ referralCode:"EX"+user.uid.slice(0,8).t
+ oUpperCase(),
   referredByCode:"",
   balance:0,
   totalDeposits:0,

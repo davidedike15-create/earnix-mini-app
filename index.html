@@ -123,10 +123,78 @@ hr{border:0;border-top:1px solid #12416d;margin:14px 0}
   <div class="card"><h3>Growth Mining Level</h3><p class="muted">Advanced level</p><button disabled class="primary">Coming Soon</button></div>
  </div>
 
- <div id="page-task" class="page">
+  <div id="page-task" class="page">
   <button class="back" onclick="showPage('mining')">‹ Back Home</button>
-  <div class="card" style="text-align:center;padding:35px 15px"><div style="font-size:55px;color:var(--cyan)">☑</div><h1>Task Bot</h1><h2>Available Soon!</h2><p class="muted">Task features will be introduced in a future update.</p><button disabled class="primary">Coming Soon</button></div>
- </div>
+
+  <div style="padding:10px 0 18px">
+    <h1 style="color:var(--cyan);margin-bottom:5px">TASK CENTER</h1>
+    <p class="muted">Complete tasks and earn rewards on Earnix.</p>
+  </div>
+
+  <!-- DAILY CHECK-IN -->
+  <div class="card" onclick="openDailyCheckin()" style="cursor:pointer;border:1px solid var(--blue);background:linear-gradient(135deg,#07172b,#020711);padding:18px;margin-bottom:13px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:25px">📅</span>
+      <span style="color:#00e878;font-weight:bold;font-size:12px">● ACTIVE</span>
+    </div>
+    <h2 style="color:var(--cyan);margin:12px 0 5px">Daily Check-in</h2>
+    <h1 style="margin:5px 0;color:white">₦10 - ₦70</h1>
+    <p class="muted">Check in every day for seven days and unlock increasing rewards.</p>
+    <button class="primary" style="width:100%">OPEN DAILY CHECK-IN →</button>
+  </div>
+
+  <!-- DAILY CHECK-IN DETAILS -->
+  <div id="dailyCheckinDetails" class="card" style="display:none;border:1px solid var(--blue);padding:16px;margin-bottom:15px">
+    <button class="back" onclick="closeDailyCheckin()">‹ Back to Tasks</button>
+    <h2 style="color:var(--cyan);text-align:center">7-DAY CHECK-IN</h2>
+    <p class="muted" style="text-align:center">Stay consistent and complete your seven-day streak.</p>
+
+    <div id="dailyProgress" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0"></div>
+
+    <div style="text-align:center;padding:15px;background:#07172b;border-radius:12px">
+      <p class="muted">Today's reward</p>
+      <h1 id="dailyReward" style="color:var(--cyan)">₦10</h1>
+      <p id="dailyStatus" class="muted">Your check-in is ready.</p>
+      <button id="dailyCheckinButton" class="primary" style="width:100%" onclick="claimDailyDemo()">CHECK IN NOW</button>
+    </div>
+    <p class="muted" style="font-size:11px;margin-top:12px">Demo mode: check-ins are saved on this device only. No wallet money is credited yet.</p>
+  </div>
+
+  <!-- OTHER TASKS -->
+  <div class="card" onclick="comingSoonTask()" style="cursor:pointer;margin-bottom:12px;padding:16px">
+    <div style="display:flex;justify-content:space-between">
+      <h3>📺 Watch Ads and Earn</h3>
+      <span style="color:#ffbd45;font-size:11px">COMING SOON</span>
+    </div>
+    <p class="muted">Watch approved advertisements and earn rewards.</p>
+  </div>
+
+  <div class="card" onclick="comingSoonTask()" style="cursor:pointer;margin-bottom:12px;padding:16px">
+    <div style="display:flex;justify-content:space-between">
+      <h3>✈ Telegram Channel Joining</h3>
+      <span style="color:#ffbd45;font-size:11px">COMING SOON</span>
+    </div>
+    <p class="muted">Join our official Telegram channel.</p>
+  </div>
+
+  <div class="card" onclick="showPage('referral')" style="cursor:pointer;border:1px solid var(--blue);margin-bottom:12px;padding:16px">
+    <div style="display:flex;justify-content:space-between">
+      <h3>👥 Referral Tasks</h3>
+      <span style="color:#00e878;font-size:11px">● ACTIVE</span>
+    </div>
+    <p class="muted">Invite friends and earn after referral verification.</p>
+    <button class="primary" style="width:100%">OPEN REFERRALS →</button>
+  </div>
+
+  <div class="card" onclick="comingSoonTask()" style="cursor:pointer;margin-bottom:15px;padding:16px">
+    <div style="display:flex;justify-content:space-between">
+      <h3>🎁 Special Promotions</h3>
+      <span style="color:#ffbd45;font-size:11px">COMING SOON</span>
+    </div>
+    <p class="muted">Discover special campaigns and promotions.</p>
+  </div>
+</div>
+
 
  <div id="page-wallet" class="page">
   <button class="back" onclick="showPage('mining')">‹ Back Home</button><h2>My Wallet</h2>

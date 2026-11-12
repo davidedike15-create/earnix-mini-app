@@ -480,6 +480,130 @@ window.publishNotice=async()=>{
 };
 function renderReferralStats(){msg("refCount",String(profile.verifiedReferralCount||0))}
 setInterval(()=>{if(user&&profile)renderReferralStats()},5000);
+ const DAILY_REWARDS = 
+ [10,20,30,40,50,60,70];
+ 
+function lagosDateKey(){
+  const parts = new Intl.DateTimeFormat("en-CA",{
+    timeZone:"Africa/Lagos",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).formatToParts(new Date());
+
+  const get = type => parts.find(p=>p.type===type).value;
+  return `${get("year")}-${get("month")}-${get("day")}`;
+}
+
+function getDailyDemoState(){
+  try{
+    return JSON.parse(localStorage.getItem("earnixDailyDemo") || "{}");
+  }catch(e){
+    return {};
+  }
+}
+
+function yesterdayKey(today){
+  const date = new Date(today+"T00:00:00Z");
+  date.setUTCDate(date.getUTCDate()-1);
+  return date.toISOString().slice(0,10);
+}
+
+function openDailyCheckin(){
+  $("dailyCheckinDetails").style.display="block";
+  renderDailyCheckin();
+}
+
+function closeDailyCheckin(){
+  $("dailyCheckinDetails").style.display="none";
+}
+
+function renderDailyCheckin(){
+  const today=lagosDateKey();
+  const state=getDailyDemoState();
+
+  let streak=Number(state.streak||0);
+
+  if(state.lastDate!==today &&
+     state.lastDate!==yesterdayKey(today)){
+    streak=0;
+  }
+
+  if(streak>7)streak=0;
+
+  const alreadyChecked=state.lastDate===today;
+  const currentDay=alreadyChecked
+    ? Math.max(1,streak)
+    : (streak>=7 ? 1 : streak+1);
+
+  $("dailyReward").textContent="₦"+DAILY_REWARDS[currentDay-1];
+
+  $("dailyStatus").textContent=alreadyChecked
+    ? "You have checked in today. Come back tomorrow!"
+    : "Your Day "+currentDay+" reward is ready.";
+
+  $("dailyCheckinButton").disabled=alreadyChecked;
+  $("dailyCheckinButton").textContent=alreadyChecked
+    ? "CHECKED IN TODAY"
+    : "CHECK IN NOW";
+
+  $("dailyProgress").innerHTML=DAILY_REWARDS.map((reward,index)=>{
+    const day=index+1;
+    const completed=alreadyChecked
+      ? day<=streak
+      : day<=streak;
+
+    const active=day===currentDay;
+
+    return `<div style="
+      padding:13px 8px;
+      text-align:center;
+      border-radius:10px;
+      border:1px solid ${active?"var(--cyan)":"#163451"};
+      background:${completed?"#063c35":"#07172b"};
+    ">
+      <div style="color:white;font-weight:bold">DAY ${day}</div>
+      <div style="color:var(--cyan);font-size:19px;font-weight:bold;margin:5px 0">₦${reward}</div>
+      <small style="color:${completed?"#00e878":"#9bb0c9"}">
+        ${completed?"COMPLETED":active?"CURRENT":"LOCKED"}
+      </small>
+    </div>`;
+  }).join("");
+}
+
+function claimDailyDemo(){
+  const today=lagosDateKey();
+  const state=getDailyDemoState();
+
+  if(state.lastDate===today){
+    alert("You have already checked in today.");
+    return;
+  }
+
+  let nextStreak=1;
+
+  if(state.lastDate===yesterdayKey(today)){
+    nextStreak=Number(state.streak||0)+1;
+    if(nextStreak>7)nextStreak=1;
+  }
+
+  const updated={
+    streak:nextStreak,
+    lastDate:today
+  };
+
+  localStorage.setItem("earnixDailyDemo",JSON.stringify(updated));
+
+  renderDailyCheckin();
+
+  alert("Demo check-in successful! Day "+nextStreak+
+    " reward: ₦"+DAILY_REWARDS[nextStreak-1]+
+    ". No wallet money has been credited.");
+}
+
+function comingSoonTask(){
+  alert("This task will be available in a future Earnix update.");
+}
 </script>
 </body>
 </html>
